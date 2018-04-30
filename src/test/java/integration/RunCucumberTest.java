@@ -1,4 +1,4 @@
-package engineerthesis;
+package integration;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;

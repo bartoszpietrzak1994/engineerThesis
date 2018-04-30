@@ -1,4 +1,4 @@
-package engineerthesis;
+package integration;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
@@ -14,7 +14,6 @@ final public class SetupSteps
     @Given("^a random album is added to collection$")
     public void a_random_album_is_added_to_collection() throws Exception
     {
-        // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 }
