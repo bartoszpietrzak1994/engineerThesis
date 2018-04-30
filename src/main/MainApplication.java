@@ -1,7 +1,7 @@
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 
 public class MainApplication extends Application
@@ -12,17 +12,14 @@ public class MainApplication extends Application
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception
+    public void start(Stage stage) throws Exception
     {
-        primaryStage.setTitle("Hello World!");
-        Button button = new Button();
-        button.setText("Say 'Hello World'");
-        button.setOnAction(event -> System.out.println("Hello World!"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainWindow.fxml"));
 
-        StackPane root = new StackPane();
-        root.getChildren().add(button);
+        Scene scene = new Scene(root, 300, 275);
 
-        primaryStage.setScene(new Scene(root, 300, 250));
-        primaryStage.show();
+        stage.setTitle("My music collection");
+        stage.setScene(scene);
+        stage.show();
     }
 }
