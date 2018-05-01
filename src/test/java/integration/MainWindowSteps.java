@@ -59,25 +59,25 @@ final public class MainWindowSteps extends ApplicationTest
     @Given("^I visit the main application window$")
     public void i_visit_the_main_application_window() throws Exception
     {
-
+        throw new PendingException();
     }
 
     @Then("^the Add Album window should appear$")
     public void the_Add_Album_window_should_appear() throws Exception
     {
-        throw new PendingException();
+        this.mainApplicationTest.addAlbumWindowShouldAppear();
     }
 
     @Then("^I the Rate Album window should appear$")
     public void i_the_Rate_Album_window_should_appear() throws Exception
     {
-        throw new PendingException();
+        this.mainApplicationTest.rateAlbumWindowShouldAppear();
     }
 
     @Then("^I the Album Details window should appear$")
     public void i_the_Album_Details_window_should_appear() throws Exception
     {
-        throw new PendingException();
+        this.mainApplicationTest.albumDetailsWindowShouldAppear();
     }
 
     /**

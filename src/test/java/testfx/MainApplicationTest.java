@@ -38,9 +38,11 @@ public class MainApplicationTest extends ApplicationTest
             try
             {
                 root = fxmlLoader.load();
-            } catch (IOException e)
+            }
+            catch (IOException e)
             {
                 e.printStackTrace();
+                return;
             }
             stage.setScene(new Scene(root, 1024, 768));
             stage.show();
@@ -80,5 +82,20 @@ public class MainApplicationTest extends ApplicationTest
     public void clickDetailsButton()
     {
         clickOn("#albumDetails");
+    }
+
+    public void rateAlbumWindowShouldAppear()
+    {
+        return;
+    }
+
+    public void albumDetailsWindowShouldAppear()
+    {
+        return;
+    }
+
+    public void addAlbumWindowShouldAppear()
+    {
+        return;
     }
 }
