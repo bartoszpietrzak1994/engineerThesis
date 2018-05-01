@@ -9,7 +9,7 @@ import cucumber.api.java.en.When;
 import org.testfx.framework.junit.ApplicationTest;
 import testfx.MainApplicationTest;
 
-final public class  MainWindowSteps extends ApplicationTest
+final public class MainWindowSteps extends ApplicationTest
 {
     private MainApplicationTest mainApplicationTest;
 
@@ -59,7 +59,7 @@ final public class  MainWindowSteps extends ApplicationTest
     @Given("^I visit the main application window$")
     public void i_visit_the_main_application_window() throws Exception
     {
-        throw new PendingException();
+
     }
 
     @Then("^the Add Album window should appear$")
@@ -98,6 +98,13 @@ final public class  MainWindowSteps extends ApplicationTest
     @When("^I select an album from my collection$")
     public void i_select_an_album_from_my_collection() throws Exception
     {
+        throw new PendingException();
+    }
+
+    @Then("^I should be able to see my album collection$")
+    public void i_should_be_able_to_see_my_album_collection() throws Exception
+    {
+        // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 }

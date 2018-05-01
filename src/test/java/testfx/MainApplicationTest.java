@@ -1,7 +1,6 @@
 package testfx;
 
 import config.MainApplicationConfiguration;
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -47,12 +46,13 @@ public class MainApplicationTest extends ApplicationTest
             stage.show();
             stage.toFront();
         });
+
+        this.jfxPanel = new JFXPanel();
     }
 
     public void setUp() throws Exception
     {
         start(FxToolkit.registerPrimaryStage());
-        this.jfxPanel = new JFXPanel();
     }
 
     public void tearDown() throws Exception

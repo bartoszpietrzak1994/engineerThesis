@@ -8,6 +8,10 @@ Background:
   And a random album is added to collection
   And I visit the main application window
 
+Scenario: I am able to see my album collection
+  When I visit the main application window
+  Then I should be able to see my album collection
+
 Scenario: I am able to add album data
   When I click Add Album button
   Then the Add Album window should appear
