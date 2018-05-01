@@ -1,6 +1,7 @@
 package testfx;
 
 import config.MainApplicationConfiguration;
+import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,8 +11,11 @@ import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+
+import java.io.IOException;
 
 public class MainApplicationTest extends ApplicationTest
 {
@@ -25,13 +29,24 @@ public class MainApplicationTest extends ApplicationTest
     @Override
     public void start(Stage stage) throws Exception
     {
-        FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(MainApplicationConfiguration.class.getResource(RELATIVE_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(applicationContext::getBean);
-        Parent root = fxmlLoader.load();
-        stage.setScene(new Scene(root, 1024, 768));
-        stage.show();
-        stage.toFront();
+        FxRobot fxRobot = new FxRobot();
+        fxRobot.interact(() ->
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(MainApplicationConfiguration.class.getResource(RELATIVE_CONTROLLER_PATH));
+            fxmlLoader.setControllerFactory(applicationContext::getBean);
+            Parent root = null;
+            try
+            {
+                root = fxmlLoader.load();
+            } catch (IOException e)
+            {
+                e.printStackTrace();
+            }
+            stage.setScene(new Scene(root, 1024, 768));
+            stage.show();
+            stage.toFront();
+        });
     }
 
     public void setUp() throws Exception
