@@ -34,7 +34,7 @@ public class MainApplicationTest extends ApplicationTest
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MainApplicationConfiguration.class.getResource(RELATIVE_CONTROLLER_PATH));
             fxmlLoader.setControllerFactory(applicationContext::getBean);
-            Parent root = null;
+            Parent root;
             try
             {
                 root = fxmlLoader.load();
