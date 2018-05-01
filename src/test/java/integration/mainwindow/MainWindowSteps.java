@@ -1,4 +1,4 @@
-package integration;
+package integration.mainwindow;
 
 import cucumber.api.PendingException;
 import cucumber.api.java.After;
@@ -57,6 +57,7 @@ final public class MainWindowSteps extends ApplicationTest
      * Window steps
      */
     @Given("^I visit the main application window$")
+    @Then("^I should visit the main application window$")
     public void i_visit_the_main_application_window() throws Exception
     {
         throw new PendingException();
