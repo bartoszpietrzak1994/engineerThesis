@@ -1,6 +1,7 @@
 package testfx;
 
 import config.MainApplicationConfiguration;
+import config.PersistenceConfiguration;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -21,7 +22,7 @@ public class MainApplicationTest extends ApplicationTest
     private static final String RELATIVE_CONTROLLER_PATH = "../ui/mainWindow.fxml";
 
     private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext
-            (MainApplicationConfiguration.class);
+            (MainApplicationConfiguration.class, PersistenceConfiguration.class);
 
     private JFXPanel jfxPanel;
 

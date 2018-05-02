@@ -69,7 +69,7 @@ public class PersistenceConfiguration
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
-    Properties additionalProperties()
+    private Properties additionalProperties()
     {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");

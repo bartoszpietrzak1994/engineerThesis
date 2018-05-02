@@ -1,4 +1,5 @@
 import config.MainApplicationConfiguration;
+import config.PersistenceConfiguration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -12,7 +13,7 @@ public class MainApplication extends Application
     private static final String RELATIVE_CONTROLLER_PATH = "ui/mainWindow.fxml";
 
     private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext
-            (MainApplicationConfiguration.class);
+            (MainApplicationConfiguration.class, PersistenceConfiguration.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception
