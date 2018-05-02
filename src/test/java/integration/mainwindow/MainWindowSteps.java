@@ -6,16 +6,25 @@ import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.testfx.framework.junit.ApplicationTest;
+import repository.UserRepository;
 import testfx.MainApplicationTest;
 
+@Component
 final public class MainWindowSteps extends ApplicationTest
 {
+    @Autowired
+    private UserRepository userRepository;
+
     private MainApplicationTest mainApplicationTest;
 
     @Before
     public void setUp() throws Exception
     {
+        userRepository.deleteAll();
+        userRepository.flush();
         this.mainApplicationTest = new MainApplicationTest();
         this.mainApplicationTest.setUp();
     }

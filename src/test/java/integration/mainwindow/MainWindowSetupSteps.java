@@ -2,7 +2,7 @@ package integration.mainwindow;
 
 import cucumber.api.java.en.Given;
 import integration.SpringIntegrationTest;
-import model.User;
+import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.UserRepository;
@@ -17,9 +17,10 @@ final public class MainWindowSetupSteps extends SpringIntegrationTest
     public void i_am_a_logged_in_user() throws Exception
     {
         User user = new User();
-        user.setUserName("sample_user_name");
+        user.setUserName("user");
         user.setPassword("password");
         userRepository.save(user);
+        userRepository.flush();
     }
 
     @Given("^a random album is added to collection$")
