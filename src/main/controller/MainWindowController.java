@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import model.album.AlbumRating;
 import model.album.AlbumSortingCriterias;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +23,9 @@ final public class MainWindowController implements Initializable
 {
     @FXML
     private ComboBox<String> sortBy;
+
+    @FXML
+    private ComboBox<String> albumRatings;
 
     @FXML
     private TextField userName;
@@ -54,6 +58,11 @@ final public class MainWindowController implements Initializable
                 .collect(Collectors.toList());
         ObservableList<String> ioOperations = FXCollections.observableList(stringAlbumSortingCriterias);
         sortBy.setItems(ioOperations);
+
+        List<String> stringAlbumRatings = Arrays.stream(AlbumRating.values()).map(Enum::toString)
+                .collect(Collectors.toList());
+        ObservableList<String> albumRating = FXCollections.observableList(stringAlbumRatings);
+        albumRatings.setItems(albumRating);
     }
 
     @FXML

@@ -5,20 +5,19 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <TextField editable="false" layoutX="33.0" layoutY="164.0" prefHeight="27.0" prefWidth="51.0" text="Title" />
       <TextField fx:id="title" layoutX="172.0" layoutY="164.0" prefHeight="27.0" prefWidth="124.0" />
       <TextField editable="false" layoutX="33.0" layoutY="121.0" prefHeight="27.0" prefWidth="51.0" text="Artist" />
-      <TextField fx:id="artist" layoutX="172.0" layoutY="121.0" prefHeight="27.0" prefWidth="124.0" />
+      <TextField fx:id="artist" layoutX="172.0" layoutY="122.0" prefHeight="27.0" prefWidth="124.0" />
       <TextField editable="false" layoutX="33.0" layoutY="206.0" prefHeight="27.0" prefWidth="110.0" text="Release Date" />
       <TextField fx:id="releaseDate" layoutX="172.0" layoutY="206.0" prefHeight="27.0" prefWidth="124.0" />
       <TextField editable="false" layoutX="33.0" layoutY="253.0" prefHeight="27.0" prefWidth="110.0" text="Album Cover" />
       <TextField fx:id="albumCover" layoutX="172.0" layoutY="253.0" prefHeight="27.0" prefWidth="124.0" />
       <Button fx:id="browse" layoutX="311.0" layoutY="253.0" mnemonicParsing="false" text="Browse" />
       <TextField alignment="CENTER" editable="false" layoutX="398.0" layoutY="29.0" text="Album cover preview" />
-      <ImageView fx:id="albumCover" fitHeight="158.0" fitWidth="167.0" layoutX="398.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="albumCoverView" fitHeight="158.0" fitWidth="167.0" layoutX="398.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="add" layoutX="452.0" layoutY="333.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="97.0" text="Add" />
    </children>
 </AnchorPane>
