@@ -1,11 +1,11 @@
-package response.user;
+package response.album;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
-public class LoginResponse
+@NoArgsConstructor
+public class RateAlbumResponse
 {
     private boolean isSuccessful;
     private String errorMessage;

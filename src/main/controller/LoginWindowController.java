@@ -55,10 +55,6 @@ final public class LoginWindowController implements Initializable
     @FXML
     private Label userLoggedOut;
 
-    private boolean isLogout = false;
-
-    private String userName;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {}
 

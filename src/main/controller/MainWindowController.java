@@ -111,9 +111,6 @@ final public class MainWindowController implements Initializable
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_LOGIN_CONTROLLER_PATH));
         fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
         Parent root = fxmlLoader.load();
-        LoginWindowController controller = fxmlLoader.getController();
-        controller.setLogout(true);
-        controller.setUserName(this.userName.getText());
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);

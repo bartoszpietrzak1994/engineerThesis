@@ -32,6 +32,10 @@ final public class Album
     @Column(name = "rating_date")
     private Date ratingDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "album_rating")
+    private AlbumRating albumRating;
+
     @Column(name = "album_cover")
     private byte[] albumCover;
 }
