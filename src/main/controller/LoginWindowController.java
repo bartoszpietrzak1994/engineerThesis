@@ -1,5 +1,6 @@
 package controller;
 
+import config.MainApplicationConfiguration;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -51,11 +52,15 @@ final public class LoginWindowController implements Initializable
     @FXML
     private Label message;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
-    {
+    @FXML
+    private Label userLoggedOut;
 
-    }
+    private boolean isLogout = false;
+
+    private String userName;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {}
 
     @FXML
     public void onRegisterButtonClicked()
@@ -97,7 +102,13 @@ final public class LoginWindowController implements Initializable
             return;
         }
 
+        openMainApplicationWindow(userName);
+    }
+
+    private void openMainApplicationWindow(String userName) throws IOException
+    {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_MAIN_CONTROLLER_PATH));
+        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);

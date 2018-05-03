@@ -1,7 +1,6 @@
 package testfx;
 
 import config.MainApplicationConfiguration;
-import config.PersistenceConfiguration;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,8 +8,6 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
@@ -20,9 +17,6 @@ import java.io.IOException;
 public class MainApplicationTest extends ApplicationTest
 {
     private static final String RELATIVE_CONTROLLER_PATH = "../ui/mainWindow.fxml";
-
-    private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext
-            (MainApplicationConfiguration.class, PersistenceConfiguration.class);
 
     private JFXPanel jfxPanel;
 
@@ -34,7 +28,7 @@ public class MainApplicationTest extends ApplicationTest
         {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MainApplicationConfiguration.class.getResource(RELATIVE_CONTROLLER_PATH));
-            fxmlLoader.setControllerFactory(applicationContext::getBean);
+            fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
             Parent root;
             try
             {

@@ -1,26 +1,20 @@
 import config.MainApplicationConfiguration;
-import config.PersistenceConfiguration;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class MainApplication extends Application
 {
     private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "ui/loginWindow.fxml";
-
-    private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext
-            (MainApplicationConfiguration.class, PersistenceConfiguration.class);
 
     @Override
     public void start(Stage primaryStage) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(getClass().getResource(RELATIVE_LOGIN_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(applicationContext::getBean);
+        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("My Music Collection");
         Scene scene = new Scene(root, 600, 400);
