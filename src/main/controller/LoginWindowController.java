@@ -100,10 +100,15 @@ final public class LoginWindowController implements Initializable
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_MAIN_CONTROLLER_PATH));
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.initStyle(StageStyle.UNDECORATED);
-        stage.setTitle("ABC");
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("My music collection");
+        MainWindowController controller = fxmlLoader.getController();
+        controller.setUserName(userName);
         stage.setScene(new Scene(root));
         stage.show();
+
+        Stage loginStage = (Stage) registerButton.getScene().getWindow();
+        loginStage.close();
     }
 }
