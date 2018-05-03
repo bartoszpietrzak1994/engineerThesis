@@ -3,6 +3,7 @@ package request.album;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.album.AlbumRating;
+import model.user.User;
 
 import java.sql.Date;
 
@@ -15,4 +16,5 @@ public class AddAlbumRequest
     private Date releaseDate;
     private AlbumRating albumRating;
     private byte[] albumCover;
+    private User user;
 }

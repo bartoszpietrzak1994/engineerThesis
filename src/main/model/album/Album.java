@@ -3,6 +3,7 @@ package model.album;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import model.user.User;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -38,4 +39,8 @@ final public class Album
 
     @Column(name = "album_cover")
     private byte[] albumCover;
+
+    @ManyToOne(targetEntity = User.class, optional = false)
+    @JoinColumn(name = "id")
+    private User user;
 }
