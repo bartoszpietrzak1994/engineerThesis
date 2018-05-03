@@ -1,15 +1,14 @@
 package response.user;
 
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class RegisterUserResponse
 {
     private boolean isSuccessful;
+    private String errorMessage;
     private String userId;
 
     public RegisterUserResponse(String userId)

@@ -3,6 +3,7 @@ package manager;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import repository.UserRepository;
 import request.user.LoginRequest;
@@ -19,6 +20,9 @@ public class AuthenticationProvider
     @Autowired
     private Environment environment;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     public RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest)
     {
         String userName = registerUserRequest.getUserName();
@@ -26,7 +30,7 @@ public class AuthenticationProvider
 
         User user = new User();
         user.setUserName(userName);
-        user.setPassword(password);
+        user.setPassword(bCryptPasswordEncoder.encode(password));
 
         RegisterUserResponse registerUserResponse = new RegisterUserResponse();
 
@@ -35,9 +39,10 @@ public class AuthenticationProvider
         {
             registeredUser = userRepository.save(user);
         }
-        catch(Exception e)
+        catch (Exception e)
         {
             registerUserResponse.setSuccessful(false);
+            registerUserResponse.setErrorMessage(e.getMessage());
             return registerUserResponse;
         }
 
@@ -62,7 +67,7 @@ public class AuthenticationProvider
             loginResponse.setErrorMessage(environment.getProperty("user.not_found"));
         }
 
-        else if (!user.getPassword().equals(password))
+        else if (!bCryptPasswordEncoder.matches(password, user.getPassword()))
         {
             loginResponse.setSuccessful(false);
             loginResponse.setErrorMessage(environment.getProperty("user.invalid_password"));

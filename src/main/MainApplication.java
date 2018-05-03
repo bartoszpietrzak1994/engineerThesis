@@ -10,7 +10,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 public class MainApplication extends Application
 {
-    private static final String RELATIVE_CONTROLLER_PATH = "ui/mainWindow.fxml";
+    private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "ui/loginWindow.fxml";
 
     private static final ApplicationContext applicationContext = new AnnotationConfigApplicationContext
             (MainApplicationConfiguration.class, PersistenceConfiguration.class);
@@ -19,11 +19,11 @@ public class MainApplication extends Application
     public void start(Stage primaryStage) throws Exception
     {
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource(RELATIVE_CONTROLLER_PATH));
+        fxmlLoader.setLocation(getClass().getResource(RELATIVE_LOGIN_CONTROLLER_PATH));
         fxmlLoader.setControllerFactory(applicationContext::getBean);
         Parent root = fxmlLoader.load();
         primaryStage.setTitle("My Music Collection");
-        Scene scene = new Scene(root, 1024, 768);
+        Scene scene = new Scene(root, 600, 400);
         scene.getStylesheets().add("css/styles.css");
         primaryStage.setScene(scene);
         primaryStage.show();

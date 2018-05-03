@@ -18,12 +18,12 @@ public class AuthenticationServiceImpl implements AuthenticationService
     @Override
     public RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest)
     {
-        return null;
+        return authenticationProvider.registerUser(registerUserRequest);
     }
 
     @Override
     public LoginResponse login(LoginRequest loginRequest)
     {
-        return null;
+        return authenticationProvider.loginUser(loginRequest);
     }
 }
