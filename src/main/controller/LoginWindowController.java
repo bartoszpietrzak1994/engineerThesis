@@ -112,6 +112,7 @@ final public class LoginWindowController implements Initializable
         stage.setTitle("My music collection");
         MainWindowController controller = fxmlLoader.getController();
         controller.setUserName(userName);
+        controller.loadUserAlbums();
         stage.setScene(new Scene(root));
         stage.show();
 

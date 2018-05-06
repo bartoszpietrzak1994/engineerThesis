@@ -9,7 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="album")
+@Table(name = "album")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -42,4 +42,11 @@ final public class Album
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Override
+    public String toString()
+    {
+        return String.format("Artist: %s, Title: %s, Release Date: %s, Rating: %s", this.artist, this.title, this
+                .releaseDate, this.albumRating);
+    }
 }

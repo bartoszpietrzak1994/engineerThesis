@@ -8,18 +8,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.album.Album;
 import model.album.AlbumRating;
 import model.album.AlbumSortingCriterias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import request.album.FindAllUserAlbumRequest;
+import response.album.FindAllUserAlbumsResponse;
 import service.AlbumService;
 
 import java.io.IOException;
@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Component
 final public class MainWindowController implements Initializable
@@ -71,6 +72,9 @@ final public class MainWindowController implements Initializable
     @FXML
     private ListView<String> userAlbums;
 
+    @FXML
+    private Label message;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -83,8 +87,6 @@ final public class MainWindowController implements Initializable
                 .collect(Collectors.toList());
         ObservableList<String> albumRating = FXCollections.observableList(stringAlbumRatings);
         albumRatings.setItems(albumRating);
-
-        
     }
 
     @FXML
@@ -151,6 +153,21 @@ final public class MainWindowController implements Initializable
 
     public void loadUserAlbums()
     {
+        FindAllUserAlbumRequest findAllUserAlbumRequest = new FindAllUserAlbumRequest();
+        findAllUserAlbumRequest.setUserName(this.userName.getText());
 
+        FindAllUserAlbumsResponse allAlbumsAddedByUser = this.albumService.findAllAlbumsAddedByUser
+                (findAllUserAlbumRequest);
+
+        if (!allAlbumsAddedByUser.isSuccessful())
+        {
+            this.message.setText(allAlbumsAddedByUser.getErrorMessage());
+            return;
+        }
+
+        List<Album> albumList = allAlbumsAddedByUser.getAlbumList();
+        List<String> albumsAsString = albumList.stream().map(Album::toString).collect(Collectors.toList());
+
+        userAlbums.getItems().addAll(albumsAsString);
     }
 }
