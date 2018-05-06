@@ -1,21 +1,29 @@
 package manager;
 
 import model.album.Album;
+import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
 import request.album.AddAlbumRequest;
+import request.album.FindAllUserAlbumRequest;
 import request.album.RateAlbumRequest;
 import response.album.AddAlbumResponse;
+import response.album.FindAllUserAlbumsResponse;
 import response.album.RateAlbumResponse;
+import service.AuthenticationService;
 
 import java.sql.Date;
+import java.util.List;
 
 @Component
 final public class AlbumManager
 {
     @Autowired
     private AlbumRepository albumRepository;
+
+    @Autowired
+    private AuthenticationService authenticationService;
 
     public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
@@ -31,8 +39,10 @@ final public class AlbumManager
         }
 
         album.setAlbumCover(addAlbumRequest.getAlbumCover());
-        album.setReleaseDate(addAlbumRequest.getReleaseDate());
-        album.setUser(addAlbumRequest.getUser());
+        album.setReleaseDate(Date.valueOf(addAlbumRequest.getReleaseDate()));
+
+        User user = authenticationService.findUserByUsername(addAlbumRequest.getUserName());
+        album.setUser(user);
 
         AddAlbumResponse addAlbumResponse = new AddAlbumResponse();
 
@@ -42,6 +52,7 @@ final public class AlbumManager
         }
         catch (Exception e)
         {
+            e.printStackTrace();
             addAlbumResponse.setSuccessful(false);
             addAlbumResponse.setErrorMessage(e.getMessage());
 
@@ -77,6 +88,31 @@ final public class AlbumManager
         rateAlbumResponse.setSuccessful(true);
 
         return rateAlbumResponse;
+    }
+
+    public FindAllUserAlbumsResponse findAllUserAlbums(FindAllUserAlbumRequest findAllUserAlbumRequest)
+    {
+        String userName = findAllUserAlbumRequest.getUserName();
+        User user = authenticationService.findUserByUsername(userName);
+
+        FindAllUserAlbumsResponse response = new FindAllUserAlbumsResponse();
+        List<Album> userAlbums;
+
+        try
+        {
+             userAlbums = albumRepository.findAllByUser(user);
+        }
+        catch (Exception e)
+        {
+            response.setSuccessful(false);
+            response.setErrorMessage(e.getMessage());
+            return response;
+        }
+
+        response.setSuccessful(true);
+        response.setAlbumList(userAlbums);
+
+        return response;
     }
 
     private Date getCurrentDate()

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="user",
-        uniqueConstraints={@UniqueConstraint(columnNames={"id"})})
+        uniqueConstraints={@UniqueConstraint(columnNames={"username"})})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,8 +16,8 @@ final public class User
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, unique = true, length = 5)
-    private Long id;
+    @Column(name = "user_id", nullable = false, unique = true, length = 5)
+    private Long userId;
 
     @Column(name = "username", nullable = false, unique = true, length = 10)
     private String userName;

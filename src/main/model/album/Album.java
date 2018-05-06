@@ -9,8 +9,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name="album",
-        uniqueConstraints={@UniqueConstraint(columnNames={"id"})})
+@Table(name="album")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,8 +17,8 @@ final public class Album
 {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false, unique = true, length = 5)
-    private Long id;
+    @Column(name = "album_id", nullable = false, unique = true, length = 5)
+    private Long albumId;
 
     @Column(name = "artist", nullable = false, unique = true, length = 50)
     private String artist;
@@ -37,10 +36,10 @@ final public class Album
     @Column(name = "album_rating")
     private AlbumRating albumRating;
 
-    @Column(name = "album_cover")
+    @Column(name = "album_cover", length = 16777215)
     private byte[] albumCover;
 
     @ManyToOne(targetEntity = User.class, optional = false)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "user_id")
     private User user;
 }

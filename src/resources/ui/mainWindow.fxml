@@ -13,7 +13,7 @@
       <Button fx:id="rate" layoutX="24.0" layoutY="267.0" mnemonicParsing="false" onAction="#onRateButtonClicked" prefHeight="27.0" prefWidth="61.0" text="Rate" />
       <Button fx:id="getRecommendations" layoutX="24.0" layoutY="342.0" mnemonicParsing="false" onAction="#onGetRecommendationsButtonClicked" text="Get Recommendations" />
       <Button fx:id="details" layoutX="72.0" layoutY="305.0" mnemonicParsing="false" onAction="#onDetailsButtonClicked" text="Details" />
-      <ListView layoutX="214.0" layoutY="111.0" prefHeight="368.0" prefWidth="356.0" />
+      <ListView fx:id="userAlbums" layoutX="214.0" layoutY="111.0" prefHeight="368.0" prefWidth="356.0" />
       <TextField editable="false" layoutX="286.0" layoutY="74.0" prefHeight="27.0" prefWidth="68.0" text="Sort by:" />
       <ComboBox fx:id="sortBy" layoutX="365.0" layoutY="74.0" prefHeight="27.0" prefWidth="68.0" />
       <ImageView fx:id="albumCoverPreview" fitHeight="150.0" fitWidth="200.0" layoutX="577.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />

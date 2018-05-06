@@ -1,6 +1,7 @@
 package client;
 
 import manager.AuthenticationProvider;
+import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import request.user.LoginRequest;
@@ -25,5 +26,11 @@ public class AuthenticationServiceImpl implements AuthenticationService
     public LoginResponse login(LoginRequest loginRequest)
     {
         return authenticationProvider.loginUser(loginRequest);
+    }
+
+    @Override
+    public User findUserByUsername(String userName)
+    {
+        return authenticationProvider.findUserByUsername(userName);
     }
 }

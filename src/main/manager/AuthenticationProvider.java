@@ -47,7 +47,7 @@ public class AuthenticationProvider
         }
 
         registerUserResponse.setSuccessful(true);
-        registerUserResponse.setUserId(String.valueOf(registeredUser.getId()));
+        registerUserResponse.setUserId(String.valueOf(registeredUser.getUserId()));
 
         return registerUserResponse;
     }
@@ -79,5 +79,10 @@ public class AuthenticationProvider
         }
 
         return loginResponse;
+    }
+
+    public User findUserByUsername(String userName)
+    {
+        return userRepository.findOneByUserName(userName);
     }
 }
