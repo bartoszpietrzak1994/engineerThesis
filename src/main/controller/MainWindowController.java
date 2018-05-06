@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -19,16 +20,18 @@ import model.album.AlbumSortingCriterias;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import request.album.FindAllUserAlbumRequest;
+import request.album.GetAlbumCoverRequest;
 import response.album.FindAllUserAlbumsResponse;
+import response.album.GetAlbumCoverResponse;
 import service.AlbumService;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 final public class MainWindowController implements Initializable
@@ -87,6 +90,24 @@ final public class MainWindowController implements Initializable
                 .collect(Collectors.toList());
         ObservableList<String> albumRating = FXCollections.observableList(stringAlbumRatings);
         albumRatings.setItems(albumRating);
+
+        userAlbums.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+        {
+            String[] albumProperties = newValue.split(":");
+            String albumId = albumProperties[albumProperties.length-1].trim();
+
+            GetAlbumCoverRequest getAlbumCoverRequest = new GetAlbumCoverRequest();
+            getAlbumCoverRequest.setAlbumId(albumId);
+
+            GetAlbumCoverResponse albumCover = albumService.getAlbumCover(getAlbumCoverRequest);
+
+            if (!albumCover.isSuccessful())
+            {
+                return;
+            }
+
+            albumCoverPreview.setImage(new Image(new ByteArrayInputStream(albumCover.getAlbumCover())));
+        });
     }
 
     @FXML

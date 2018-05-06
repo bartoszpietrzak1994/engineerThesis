@@ -46,7 +46,7 @@ final public class Album
     @Override
     public String toString()
     {
-        return String.format("Artist: %s, Title: %s, Release Date: %s, Rating: %s", this.artist, this.title, this
-                .releaseDate, this.albumRating);
+        return String.format("Artist: %s, Title: %s, Release Date: %s, Rating: %s, Id: %s", this.artist, this.title, this
+                .releaseDate, this.albumRating, this.albumId);
     }
 }

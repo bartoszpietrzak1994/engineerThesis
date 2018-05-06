@@ -7,14 +7,17 @@ import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
 import request.album.AddAlbumRequest;
 import request.album.FindAllUserAlbumRequest;
+import request.album.GetAlbumCoverRequest;
 import request.album.RateAlbumRequest;
 import response.album.AddAlbumResponse;
 import response.album.FindAllUserAlbumsResponse;
+import response.album.GetAlbumCoverResponse;
 import response.album.RateAlbumResponse;
 import service.AuthenticationService;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 final public class AlbumManager
@@ -111,6 +114,25 @@ final public class AlbumManager
 
         response.setSuccessful(true);
         response.setAlbumList(userAlbums);
+
+        return response;
+    }
+
+    public GetAlbumCoverResponse getAlbumCover(GetAlbumCoverRequest getAlbumCoverRequest)
+    {
+        Optional<Album> albumOptional = albumRepository.findById(Long.valueOf(getAlbumCoverRequest.getAlbumId()));
+
+        GetAlbumCoverResponse response = new GetAlbumCoverResponse();
+
+        if (!albumOptional.isPresent())
+        {
+            response.setSuccessful(false);
+            return response;
+        }
+
+        Album album = albumOptional.get();
+        response.setSuccessful(true);
+        response.setAlbumCover(album.getAlbumCover());
 
         return response;
     }
