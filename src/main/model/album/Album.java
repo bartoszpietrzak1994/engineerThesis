@@ -42,11 +42,4 @@ final public class Album
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "user_id")
     private User user;
-
-    @Override
-    public String toString()
-    {
-        return String.format("Artist: %s, Title: %s, Release Date: %s, Rating: %s, Id: %s", this.artist, this.title, this
-                .releaseDate, this.albumRating, this.albumId);
-    }
 }

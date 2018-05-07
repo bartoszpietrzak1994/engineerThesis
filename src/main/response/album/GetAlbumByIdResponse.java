@@ -4,13 +4,11 @@ import dto.album.AlbumDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
-public class FindAllUserAlbumsResponse
+public class GetAlbumByIdResponse
 {
     private boolean isSuccessful;
     private String errorMessage;
-    private List<AlbumDto> albumList;
+    private AlbumDto album;
 }

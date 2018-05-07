@@ -1,13 +1,7 @@
 package service;
 
-import request.album.AddAlbumRequest;
-import request.album.FindAllUserAlbumRequest;
-import request.album.GetAlbumCoverRequest;
-import request.album.RateAlbumRequest;
-import response.album.AddAlbumResponse;
-import response.album.FindAllUserAlbumsResponse;
-import response.album.GetAlbumCoverResponse;
-import response.album.RateAlbumResponse;
+import request.album.*;
+import response.album.*;
 
 public interface AlbumService
 {
@@ -15,4 +9,5 @@ public interface AlbumService
     RateAlbumResponse rateAlbum(RateAlbumRequest addAlbumRequest);
     FindAllUserAlbumsResponse findAllAlbumsAddedByUser(FindAllUserAlbumRequest findAllUserAlbumRequest);
     GetAlbumCoverResponse getAlbumCover(GetAlbumCoverRequest getAlbumCoverRequest);
+    GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumCoverRequest);
 }

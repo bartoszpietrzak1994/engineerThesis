@@ -10,20 +10,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainWindowController">
     <children>
-        <Button fx:id="addAlbum" layoutX="60.0" layoutY="232.0" mnemonicParsing="false" onAction="#onAddAlbumButtonClicked" text="Add Album" />
+        <Button fx:id="addAlbum" layoutX="69.0" layoutY="228.0" mnemonicParsing="false" onAction="#onAddAlbumButtonClicked" text="Add Album" />
       <Button fx:id="rate" layoutX="24.0" layoutY="267.0" mnemonicParsing="false" onAction="#onRateButtonClicked" prefHeight="27.0" prefWidth="61.0" text="Rate" />
-      <Button fx:id="getRecommendations" layoutX="24.0" layoutY="342.0" mnemonicParsing="false" onAction="#onGetRecommendationsButtonClicked" text="Get Recommendations" />
-      <Button fx:id="details" layoutX="72.0" layoutY="305.0" mnemonicParsing="false" onAction="#onDetailsButtonClicked" text="Details" />
+      <Button fx:id="getRecommendations" layoutX="18.0" layoutY="342.0" mnemonicParsing="false" onAction="#onGetRecommendationsButtonClicked" prefHeight="27.0" prefWidth="187.0" text="Get Recommendations" />
+      <Button fx:id="details" layoutX="81.0" layoutY="301.0" mnemonicParsing="false" onAction="#onDetailsButtonClicked" text="Details" />
       <ListView fx:id="userAlbums" layoutX="214.0" layoutY="111.0" prefHeight="368.0" prefWidth="356.0" />
       <TextField editable="false" layoutX="286.0" layoutY="74.0" prefHeight="27.0" prefWidth="68.0" text="Sort by:" />
       <ComboBox fx:id="sortBy" layoutX="365.0" layoutY="74.0" prefHeight="27.0" prefWidth="68.0" />
-      <ImageView fx:id="albumCoverPreview" fitHeight="150.0" fitWidth="200.0" layoutX="577.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true" />
-      <TextField fx:id="preview" alignment="CENTER" editable="false" layoutX="594.0" layoutY="148.0" text="Preview:" />
+      <ImageView fx:id="albumCoverPreview" fitHeight="150.0" fitWidth="200.0" layoutX="586.0" layoutY="205.0" pickOnBounds="true" preserveRatio="true" />
+      <TextField fx:id="preview" alignment="CENTER" editable="false" layoutX="595.0" layoutY="148.0" text="Preview:" />
       <TextField editable="false" layoutX="279.0" layoutY="22.0" prefHeight="27.0" prefWidth="100.0" text="Logged in as: " />
       <TextField fx:id="userName" editable="false" layoutX="388.0" layoutY="22.0" prefHeight="27.0" prefWidth="100.0" />
       <Button fx:id="logout" layoutX="30.0" layoutY="22.0" mnemonicParsing="false" onAction="#onLogoutButtonClicked" text="Logout" />
       <Button fx:id="sort" layoutX="445.0" layoutY="74.0" mnemonicParsing="false" onAction="#onSortButtonClicked" text="Sort" />
-      <ComboBox fx:id="albumRatings" layoutX="112.0" layoutY="267.0" prefHeight="27.0" prefWidth="68.0" />
+      <ComboBox fx:id="albumRatings" layoutX="98.0" layoutY="266.0" prefHeight="27.0" prefWidth="107.0" />
       <Label fx:id="message" alignment="CENTER" layoutX="134.0" layoutY="501.0" prefHeight="50.0" prefWidth="522.0" />
     </children>
 </AnchorPane>

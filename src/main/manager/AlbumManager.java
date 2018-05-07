@@ -1,23 +1,20 @@
 package manager;
 
+import mapper.album.AlbumToAlbumDtoMapper;
 import model.album.Album;
+import model.album.AlbumRating;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
-import request.album.AddAlbumRequest;
-import request.album.FindAllUserAlbumRequest;
-import request.album.GetAlbumCoverRequest;
-import request.album.RateAlbumRequest;
-import response.album.AddAlbumResponse;
-import response.album.FindAllUserAlbumsResponse;
-import response.album.GetAlbumCoverResponse;
-import response.album.RateAlbumResponse;
+import request.album.*;
+import response.album.*;
 import service.AuthenticationService;
 
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Component
 final public class AlbumManager
@@ -69,9 +66,9 @@ final public class AlbumManager
 
     public RateAlbumResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
     {
-        Album album = albumRepository.getOne(rateAlbumRequest.getAlbumId());
+        Album album = albumRepository.getOne(Long.valueOf(rateAlbumRequest.getAlbumId()));
 
-        album.setAlbumRating(rateAlbumRequest.getAlbumRating());
+        album.setAlbumRating(AlbumRating.valueOf(rateAlbumRequest.getAlbumRating()));
         album.setRatingDate(getCurrentDate());
 
         RateAlbumResponse rateAlbumResponse = new RateAlbumResponse();
@@ -113,7 +110,7 @@ final public class AlbumManager
         }
 
         response.setSuccessful(true);
-        response.setAlbumList(userAlbums);
+        response.setAlbumList(userAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect(Collectors.toList()));
 
         return response;
     }
@@ -133,6 +130,25 @@ final public class AlbumManager
         Album album = albumOptional.get();
         response.setSuccessful(true);
         response.setAlbumCover(album.getAlbumCover());
+
+        return response;
+    }
+
+    public GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumByIdRequest)
+    {
+        Optional<Album> albumById = albumRepository.findById(Long.valueOf(getAlbumByIdRequest.getAlbumId()));
+
+        GetAlbumByIdResponse response = new GetAlbumByIdResponse();
+
+        if (!albumById.isPresent())
+        {
+            response.setSuccessful(false);
+            return response;
+        }
+
+        Album album = albumById.get();
+        response.setSuccessful(true);
+        response.setAlbum(AlbumToAlbumDtoMapper.map(album));
 
         return response;
     }

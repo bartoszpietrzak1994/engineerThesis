@@ -3,10 +3,9 @@ package request.album;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Data
-public class RateAlbumRequest
+@NoArgsConstructor
+public class GetAlbumByIdRequest
 {
     private String albumId;
-    private String albumRating;
 }
