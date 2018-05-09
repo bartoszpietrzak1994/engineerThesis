@@ -20,12 +20,15 @@ import model.album.AlbumRating;
 import model.album.AlbumSortingCriterias;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import request.album.FindAllUserAlbumRequest;
 import request.album.GetAlbumCoverRequest;
+import request.album.GetAlbumsGroupedByCriteriaRequest;
 import request.album.RateAlbumRequest;
 import response.album.FindAllUserAlbumsResponse;
 import response.album.GetAlbumCoverResponse;
+import response.album.GetAlbumsGroupedByCriteriaResponse;
 import response.album.RateAlbumResponse;
 import service.AlbumService;
 import util.album.AlbumPropertiesUtils;
@@ -47,6 +50,9 @@ final public class MainWindowController implements Initializable
 
     @Autowired
     private AlbumService albumService;
+
+    @Autowired
+    private Environment environment;
 
     @FXML
     private ComboBox<String> sortBy;
@@ -198,13 +204,30 @@ final public class MainWindowController implements Initializable
     @FXML
     public void onGetRecommendationsButtonClicked()
     {
-
+        this.message.setText(environment.getProperty("user.get_recommendations_not_available"));
     }
 
     @FXML
     public void onSortButtonClicked()
     {
+        this.message.setText("");
 
+        GetAlbumsGroupedByCriteriaRequest request = new GetAlbumsGroupedByCriteriaRequest();
+        request.setSortingCriteria(this.sortBy.getValue());
+
+        GetAlbumsGroupedByCriteriaResponse albumsGrouppedByCriteria = albumService.getAlbumsGrouppedByCriteria(request);
+
+        if (!albumsGrouppedByCriteria.isSuccessful())
+        {
+            this.message.setText(albumsGrouppedByCriteria.getErrorMessage());
+            return;
+        }
+
+        List<String> albumsAsString = albumsGrouppedByCriteria.getAlbums().stream().map(AlbumDto::toString).collect
+                (Collectors.toList());
+
+        userAlbums.getItems().clear();
+        userAlbums.getItems().addAll(albumsAsString);
     }
 
     @FXML

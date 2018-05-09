@@ -1,8 +1,10 @@
 package manager;
 
+import manager.sorting.AlbumSortingMethod;
 import mapper.album.AlbumToAlbumDtoMapper;
 import model.album.Album;
 import model.album.AlbumRating;
+import model.album.AlbumSortingCriterias;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import repository.AlbumRepository;
 import request.album.*;
 import response.album.*;
 import service.AuthenticationService;
+import util.album.AlbumSortingMethodResolver;
 
 import java.sql.Date;
 import java.util.List;
@@ -24,6 +27,9 @@ final public class AlbumManager
 
     @Autowired
     private AuthenticationService authenticationService;
+
+    @Autowired
+    private AlbumSortingMethodResolver albumSortingMethodResolver;
 
     public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
@@ -149,6 +155,29 @@ final public class AlbumManager
         Album album = albumById.get();
         response.setSuccessful(true);
         response.setAlbum(AlbumToAlbumDtoMapper.map(album));
+
+        return response;
+    }
+
+    public GetAlbumsGroupedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsGroupedByCriteriaRequest request)
+    {
+        AlbumSortingCriterias albumSortingCriteria = AlbumSortingCriterias.valueOf(request.getSortingCriteria());
+
+        AlbumSortingMethod sortingMethod = albumSortingMethodResolver.resolve(albumSortingCriteria);
+
+        GetAlbumsGroupedByCriteriaResponse response = new GetAlbumsGroupedByCriteriaResponse();
+
+        try
+        {
+            List<Album> sortedAlbums = sortingMethod.sort();
+            response.setSuccessful(true);
+            response.setAlbums(sortedAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect(Collectors.toList()));
+        }
+        catch (Exception e)
+        {
+            response.setSuccessful(false);
+            response.setErrorMessage(e.getMessage());
+        }
 
         return response;
     }

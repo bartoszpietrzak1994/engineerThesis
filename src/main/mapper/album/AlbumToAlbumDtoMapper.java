@@ -13,7 +13,7 @@ final public class AlbumToAlbumDtoMapper
     {
         return AlbumDto.builder()
                 .albumId(album.getAlbumId().toString())
-                .albumRating(album.getAlbumRating().toString())
+                .albumRating(album.getAlbumRating() != null ? album.getAlbumRating().toString() : null)
                 .albumCover(album.getAlbumCover())
                 .artist(album.getArtist())
                 .releaseDate(new SimpleDateFormat("dd/mm/yyy").format(album.getReleaseDate()))

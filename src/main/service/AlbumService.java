@@ -10,4 +10,5 @@ public interface AlbumService
     FindAllUserAlbumsResponse findAllAlbumsAddedByUser(FindAllUserAlbumRequest findAllUserAlbumRequest);
     GetAlbumCoverResponse getAlbumCover(GetAlbumCoverRequest getAlbumCoverRequest);
     GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumCoverRequest);
+    GetAlbumsGroupedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsGroupedByCriteriaRequest request);
 }

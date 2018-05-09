@@ -42,4 +42,10 @@ public class AlbumServiceImpl implements AlbumService
     {
         return albumManager.getAlbumById(getAlbumCoverRequest);
     }
+
+    @Override
+    public GetAlbumsGroupedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsGroupedByCriteriaRequest request)
+    {
+        return albumManager.getAlbumsGrouppedByCriteria(request);
+    }
 }

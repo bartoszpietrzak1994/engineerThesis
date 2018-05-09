@@ -20,10 +20,10 @@ final public class Album
     @Column(name = "album_id", nullable = false, unique = true, length = 5)
     private Long albumId;
 
-    @Column(name = "artist", nullable = false, unique = true, length = 50)
+    @Column(name = "artist", nullable = false, unique = false, length = 50)
     private String artist;
 
-    @Column(name = "title", nullable = false, unique = true, length = 50)
+    @Column(name = "title", nullable = false, unique = false, length = 50)
     private String title;
 
     @Column(name = "release_date", nullable = false)
