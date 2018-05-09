@@ -13,18 +13,18 @@ public interface AlbumRepository extends JpaRepository<Album, Long>
 {
     List<Album> findAllByUser(User user);
 
-    @Query("SELECT a FROM Album a GROUP BY artist")
-    List<Album> findAllGroupByArtist();
+    @Query("SELECT a FROM Album a ORDER BY artist")
+    List<Album> findAllOrderByArtist();
 
-    @Query("SELECT a FROM Album a GROUP BY title")
-    List<Album> findAllGroupByTitle();
+    @Query("SELECT a FROM Album a ORDER BY title")
+    List<Album> findAllOrderByTitle();
 
-    @Query("SELECT a FROM Album a GROUP BY rating")
-    List<Album> findAllGroupByRating();
+    @Query("SELECT a FROM Album a ORDER BY rating")
+    List<Album> findAllOrderByRating();
 
-    @Query("SELECT a FROM Album a GROUP BY ratingDate")
-    List<Album> findAllGroupByRatingDate();
+    @Query("SELECT a FROM Album a ORDER BY ratingDate")
+    List<Album> findAllOrderByRatingDate();
 
-    @Query("SELECT a FROM Album a GROUP BY releaseDate")
-    List<Album> findAllGroupByReleaseDate();
+    @Query("SELECT a FROM Album a ORDER BY releaseDate")
+    List<Album> findAllOrderByReleaseDate();
 }

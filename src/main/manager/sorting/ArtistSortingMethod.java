@@ -1,7 +1,7 @@
 package manager.sorting;
 
 import model.album.Album;
-import model.album.AlbumSortingCriterias;
+import model.album.AlbumOrderingCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
@@ -16,12 +16,12 @@ final public class ArtistSortingMethod extends AlbumSortingMethod
 
     public ArtistSortingMethod()
     {
-        this.albumSortingCriteria = AlbumSortingCriterias.ARTIST_NAME;
+        this.albumSortingCriteria = AlbumOrderingCriteria.ARTIST_NAME;
     }
 
     @Override
     public List<Album> sort()
     {
-        return albumRepository.findAllGroupByArtist();
+        return albumRepository.findAllOrderByArtist();
     }
 }

@@ -1,7 +1,7 @@
 package manager.sorting;
 
 import model.album.Album;
-import model.album.AlbumSortingCriterias;
+import model.album.AlbumOrderingCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
@@ -16,12 +16,12 @@ public class ReleaseDateSortingMethod extends AlbumSortingMethod
 
     public ReleaseDateSortingMethod()
     {
-        this.albumSortingCriteria = AlbumSortingCriterias.RELEASE_DATE;
+        this.albumSortingCriteria = AlbumOrderingCriteria.RELEASE_DATE;
     }
 
     @Override
     public List<Album> sort()
     {
-        return albumRepository.findAllGroupByReleaseDate();
+        return albumRepository.findAllOrderByReleaseDate();
     }
 }

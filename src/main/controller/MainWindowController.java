@@ -17,18 +17,18 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import model.album.AlbumRating;
-import model.album.AlbumSortingCriterias;
+import model.album.AlbumOrderingCriteria;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import request.album.FindAllUserAlbumRequest;
 import request.album.GetAlbumCoverRequest;
-import request.album.GetAlbumsGroupedByCriteriaRequest;
+import request.album.GetAlbumsOrderedByCriteriaRequest;
 import request.album.RateAlbumRequest;
 import response.album.FindAllUserAlbumsResponse;
 import response.album.GetAlbumCoverResponse;
-import response.album.GetAlbumsGroupedByCriteriaResponse;
+import response.album.GetAlbumsOrderedByCriteriaResponse;
 import response.album.RateAlbumResponse;
 import service.AlbumService;
 import util.album.AlbumPropertiesUtils;
@@ -93,7 +93,7 @@ final public class MainWindowController implements Initializable
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
-        List<String> stringAlbumSortingCriterias = Arrays.stream(AlbumSortingCriterias.values()).map(Enum::toString)
+        List<String> stringAlbumSortingCriterias = Arrays.stream(AlbumOrderingCriteria.values()).map(Enum::toString)
                 .collect(Collectors.toList());
         ObservableList<String> ioOperations = FXCollections.observableList(stringAlbumSortingCriterias);
         sortBy.setItems(ioOperations);
@@ -212,10 +212,10 @@ final public class MainWindowController implements Initializable
     {
         this.message.setText("");
 
-        GetAlbumsGroupedByCriteriaRequest request = new GetAlbumsGroupedByCriteriaRequest();
+        GetAlbumsOrderedByCriteriaRequest request = new GetAlbumsOrderedByCriteriaRequest();
         request.setSortingCriteria(this.sortBy.getValue());
 
-        GetAlbumsGroupedByCriteriaResponse albumsGrouppedByCriteria = albumService.getAlbumsGrouppedByCriteria(request);
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = albumService.getAlbumsGrouppedByCriteria(request);
 
         if (!albumsGrouppedByCriteria.isSuccessful())
         {

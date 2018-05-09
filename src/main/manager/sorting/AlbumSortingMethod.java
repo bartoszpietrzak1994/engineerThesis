@@ -1,7 +1,7 @@
 package manager.sorting;
 
 import model.album.Album;
-import model.album.AlbumSortingCriterias;
+import model.album.AlbumOrderingCriteria;
 
 import java.util.List;
 
@@ -9,10 +9,10 @@ public abstract class AlbumSortingMethod
 {
     public abstract List<Album> sort();
 
-    public AlbumSortingCriterias getAlbumSortingCriteria()
+    public AlbumOrderingCriteria getAlbumSortingCriteria()
     {
         return albumSortingCriteria;
     }
 
-    protected AlbumSortingCriterias albumSortingCriteria;
+    protected AlbumOrderingCriteria albumSortingCriteria;
 }

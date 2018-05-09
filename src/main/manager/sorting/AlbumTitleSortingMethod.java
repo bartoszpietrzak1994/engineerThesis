@@ -1,7 +1,7 @@
 package manager.sorting;
 
 import model.album.Album;
-import model.album.AlbumSortingCriterias;
+import model.album.AlbumOrderingCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
@@ -16,12 +16,12 @@ final public class AlbumTitleSortingMethod extends AlbumSortingMethod
 
     public AlbumTitleSortingMethod()
     {
-        this.albumSortingCriteria = AlbumSortingCriterias.ALBUM_TITLE;
+        this.albumSortingCriteria = AlbumOrderingCriteria.ALBUM_TITLE;
     }
 
     @Override
     public List<Album> sort()
     {
-        return albumRepository.findAllGroupByTitle();
+        return albumRepository.findAllOrderByTitle();
     }
 }

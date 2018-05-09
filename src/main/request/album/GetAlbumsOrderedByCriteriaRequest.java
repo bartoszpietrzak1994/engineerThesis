@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Data
-final public class GetAlbumsGroupedByCriteriaRequest
+final public class GetAlbumsOrderedByCriteriaRequest
 {
     private String sortingCriteria;
 }

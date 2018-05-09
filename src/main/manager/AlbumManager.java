@@ -4,7 +4,7 @@ import manager.sorting.AlbumSortingMethod;
 import mapper.album.AlbumToAlbumDtoMapper;
 import model.album.Album;
 import model.album.AlbumRating;
-import model.album.AlbumSortingCriterias;
+import model.album.AlbumOrderingCriteria;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -159,13 +159,13 @@ final public class AlbumManager
         return response;
     }
 
-    public GetAlbumsGroupedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsGroupedByCriteriaRequest request)
+    public GetAlbumsOrderedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
     {
-        AlbumSortingCriterias albumSortingCriteria = AlbumSortingCriterias.valueOf(request.getSortingCriteria());
+        AlbumOrderingCriteria albumSortingCriteria = AlbumOrderingCriteria.valueOf(request.getSortingCriteria());
 
         AlbumSortingMethod sortingMethod = albumSortingMethodResolver.resolve(albumSortingCriteria);
 
-        GetAlbumsGroupedByCriteriaResponse response = new GetAlbumsGroupedByCriteriaResponse();
+        GetAlbumsOrderedByCriteriaResponse response = new GetAlbumsOrderedByCriteriaResponse();
 
         try
         {

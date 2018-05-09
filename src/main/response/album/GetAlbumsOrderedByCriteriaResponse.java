@@ -8,7 +8,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
-final public class GetAlbumsGroupedByCriteriaResponse
+final public class GetAlbumsOrderedByCriteriaResponse
 {
     private boolean isSuccessful;
     private String errorMessage;

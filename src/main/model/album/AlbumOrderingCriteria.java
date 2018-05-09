@@ -1,6 +1,6 @@
 package model.album;
 
-public enum AlbumSortingCriterias
+public enum AlbumOrderingCriteria
 {
     RELEASE_DATE,
     RATING_DATE,
