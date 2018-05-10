@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
@@ -62,6 +63,8 @@ final public class AddAlbumWindowController implements Initializable
 
     private FileChooser fileChooser;
 
+    private MainWindowController mainWindowController;
+
     @Override
     public void initialize(URL location, ResourceBundle resources)
     {
@@ -76,7 +79,11 @@ final public class AddAlbumWindowController implements Initializable
     {
         AddAlbumRequest addAlbumRequest = new AddAlbumRequest();
 
-        addAlbumRequest.setAlbumCover(getAlbumCoverAsBytes());
+        if (!StringUtils.isEmpty(albumCover.getText()))
+        {
+            addAlbumRequest.setAlbumCover(getAlbumCoverAsBytes());
+        }
+
         addAlbumRequest.setArtist(this.artist.getText());
         addAlbumRequest.setTitle(this.title.getText());
         addAlbumRequest.setUserName(this.userName);
@@ -91,6 +98,7 @@ final public class AddAlbumWindowController implements Initializable
         }
 
         message.setText(environment.getProperty("album.added_successfully"));
+        this.mainWindowController.loadUserAlbums();
     }
 
     public void onBrowseButtonClicked()
@@ -108,6 +116,11 @@ final public class AddAlbumWindowController implements Initializable
     public void setUserName(String userName)
     {
         this.userName = userName;
+    }
+
+    public void setMainWindowController(MainWindowController mainWindowController)
+    {
+        this.mainWindowController = mainWindowController;
     }
 
     private byte[] getAlbumCoverAsBytes()

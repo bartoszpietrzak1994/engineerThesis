@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import request.album.FindAllUserAlbumRequest;
 import request.album.GetAlbumCoverRequest;
 import request.album.GetAlbumsOrderedByCriteriaRequest;
@@ -37,6 +38,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -55,7 +57,7 @@ final public class MainWindowController implements Initializable
     private Environment environment;
 
     @FXML
-    private ComboBox<String> sortBy;
+    private ComboBox<String> orderBy;
 
     @FXML
     private ComboBox<String> albumRatings;
@@ -76,7 +78,7 @@ final public class MainWindowController implements Initializable
     private Button getRecommendations;
 
     @FXML
-    private Button sort;
+    private Button order;
 
     @FXML
     private Button logout;
@@ -96,7 +98,7 @@ final public class MainWindowController implements Initializable
         List<String> stringAlbumSortingCriterias = Arrays.stream(AlbumOrderingCriteria.values()).map(Enum::toString)
                 .collect(Collectors.toList());
         ObservableList<String> ioOperations = FXCollections.observableList(stringAlbumSortingCriterias);
-        sortBy.setItems(ioOperations);
+        orderBy.setItems(ioOperations);
 
         List<String> stringAlbumRatings = Arrays.stream(AlbumRating.values()).map(Enum::toString)
                 .collect(Collectors.toList());
@@ -105,6 +107,7 @@ final public class MainWindowController implements Initializable
 
         userAlbums.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
         {
+            albumCoverPreview.setImage(null);
             String albumId = AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(newValue);
 
             GetAlbumCoverRequest getAlbumCoverRequest = new GetAlbumCoverRequest();
@@ -130,6 +133,7 @@ final public class MainWindowController implements Initializable
         Parent root = fxmlLoader.load();
         AddAlbumWindowController addAlbumWindowController = fxmlLoader.getController();
         addAlbumWindowController.setUserName(this.userName.getText());
+        addAlbumWindowController.setMainWindowController(this);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);
@@ -149,7 +153,7 @@ final public class MainWindowController implements Initializable
             return;
         }
 
-        String selectedAlbum = Iterables.getFirst(userAlbums.getItems(), null);
+        String selectedAlbum = Iterables.getFirst(userAlbums.getSelectionModel().getSelectedItems(), null);
 
         if (StringUtils.isEmpty(selectedAlbum))
         {
@@ -177,7 +181,7 @@ final public class MainWindowController implements Initializable
     @FXML
     public void onDetailsButtonClicked() throws IOException
     {
-        String selectedAlbum = Iterables.getFirst(userAlbums.getItems(), null);
+        String selectedAlbum = Iterables.getFirst(userAlbums.getSelectionModel().getSelectedItems(), null);
 
         if (StringUtils.isEmpty(selectedAlbum))
         {
@@ -208,12 +212,12 @@ final public class MainWindowController implements Initializable
     }
 
     @FXML
-    public void onSortButtonClicked()
+    public void onOrderButtonClicked()
     {
         this.message.setText("");
 
         GetAlbumsOrderedByCriteriaRequest request = new GetAlbumsOrderedByCriteriaRequest();
-        request.setSortingCriteria(this.sortBy.getValue());
+        request.setSortingCriteria(this.orderBy.getValue());
 
         GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = albumService.getAlbumsGrouppedByCriteria(request);
 
@@ -269,7 +273,14 @@ final public class MainWindowController implements Initializable
         List<AlbumDto> albumList = allAlbumsAddedByUser.getAlbumList();
         List<String> albumsAsString = albumList.stream().map(AlbumDto::toString).collect(Collectors.toList());
 
-        userAlbums.getItems().clear();
-        userAlbums.getItems().addAll(albumsAsString);
+
+        ObservableList<String> userAlbumItems = userAlbums.getItems();
+
+        if (!CollectionUtils.isEmpty(userAlbumItems))
+        {
+            userAlbumItems.clear();
+        }
+
+        userAlbumItems.addAll(albumsAsString);
     }
 }

@@ -135,7 +135,15 @@ final public class AlbumManager
 
         Album album = albumOptional.get();
         response.setSuccessful(true);
-        response.setAlbumCover(album.getAlbumCover());
+
+        byte[] albumCover = album.getAlbumCover();
+        if (albumCover == null)
+        {
+            response.setSuccessful(false);
+            return response;
+        }
+
+        response.setAlbumCover(albumCover);
 
         return response;
     }

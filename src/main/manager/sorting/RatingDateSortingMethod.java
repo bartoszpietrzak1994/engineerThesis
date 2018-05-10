@@ -14,8 +14,6 @@ final public class RatingDateSortingMethod extends AlbumSortingMethod
     @Autowired
     private AlbumRepository albumRepository;
 
-    private AlbumOrderingCriteria albumSortingCriteria;
-
     public RatingDateSortingMethod()
     {
         this.albumSortingCriteria = AlbumOrderingCriteria.RATING_DATE;

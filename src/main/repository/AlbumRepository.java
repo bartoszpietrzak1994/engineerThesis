@@ -19,7 +19,7 @@ public interface AlbumRepository extends JpaRepository<Album, Long>
     @Query("SELECT a FROM Album a ORDER BY title")
     List<Album> findAllOrderByTitle();
 
-    @Query("SELECT a FROM Album a ORDER BY rating")
+    @Query("SELECT a FROM Album a ORDER BY albumRating")
     List<Album> findAllOrderByRating();
 
     @Query("SELECT a FROM Album a ORDER BY ratingDate")

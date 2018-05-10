@@ -81,7 +81,12 @@ final public class AlbumDetailsController implements Initializable
         this.title.setText(album.getTitle());
         this.rating.setText(album.getAlbumRating());
         this.releaseDate.setText(album.getReleaseDate());
-        this.albumCoverView.setImage(new Image(new ByteArrayInputStream(album.getAlbumCover()), 160, 160,
-                false, false));
+
+        byte[] albumCover = album.getAlbumCover();
+        if (albumCover != null)
+        {
+            this.albumCoverView.setImage(new Image(new ByteArrayInputStream(album.getAlbumCover()), 160, 160,
+                    false, false));
+        }
     }
 }
