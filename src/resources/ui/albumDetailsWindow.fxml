@@ -11,7 +11,7 @@
         <TextField fx:id="title" layoutX="172.0" layoutY="164.0" prefHeight="27.0" prefWidth="124.0" />
         <TextField fx:id="artist" layoutX="172.0" layoutY="122.0" prefHeight="27.0" prefWidth="124.0" />
         <TextField alignment="CENTER" editable="false" layoutX="398.0" layoutY="29.0" text="Album cover" />
-        <ImageView fx:id="albumCoverView" fitHeight="150.0" fitWidth="160.0" layoutX="398.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="albumCoverPreview" fitHeight="150.0" fitWidth="160.0" layoutX="398.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" />
         <Button fx:id="close" layoutX="452.0" layoutY="333.0" mnemonicParsing="false" onAction="#onCloseButtonClicked" prefHeight="27.0" prefWidth="97.0" text="Close" />
         <Label fx:id="message" alignment="CENTER" layoutX="32.0" layoutY="77.0" prefHeight="27.0" prefWidth="363.0" />
         <Label layoutX="42.0" layoutY="127.0" text="Artist" />

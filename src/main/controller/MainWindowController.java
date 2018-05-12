@@ -3,6 +3,7 @@ package controller;
 import com.google.common.collect.Iterables;
 import config.MainApplicationConfiguration;
 import dto.album.AlbumDto;
+import eventListener.AlbumListSelectionEventListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -11,34 +12,29 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.album.AlbumRating;
 import model.album.AlbumOrderingCriteria;
+import model.album.AlbumRating;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import request.album.FindAllUserAlbumRequest;
-import request.album.GetAlbumCoverRequest;
 import request.album.GetAlbumsOrderedByCriteriaRequest;
 import request.album.RateAlbumRequest;
 import response.album.FindAllUserAlbumsResponse;
-import response.album.GetAlbumCoverResponse;
 import response.album.GetAlbumsOrderedByCriteriaResponse;
 import response.album.RateAlbumResponse;
 import service.AlbumService;
 import util.album.AlbumPropertiesUtils;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
@@ -105,24 +101,8 @@ final public class MainWindowController implements Initializable
         ObservableList<String> albumRating = FXCollections.observableList(stringAlbumRatings);
         albumRatings.setItems(albumRating);
 
-        userAlbums.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-        {
-            albumCoverPreview.setImage(null);
-            String albumId = AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(newValue);
-
-            GetAlbumCoverRequest getAlbumCoverRequest = new GetAlbumCoverRequest();
-            getAlbumCoverRequest.setAlbumId(albumId);
-
-            GetAlbumCoverResponse albumCover = albumService.getAlbumCover(getAlbumCoverRequest);
-
-            if (!albumCover.isSuccessful())
-            {
-                return;
-            }
-
-            albumCoverPreview.setImage(new Image(new ByteArrayInputStream(albumCover.getAlbumCover()), 200, 150,
-                    false, false));
-        });
+        userAlbums.getSelectionModel().selectedItemProperty().addListener(new AlbumListSelectionEventListener(
+                this.albumService, this.albumCoverPreview));
     }
 
     @FXML
