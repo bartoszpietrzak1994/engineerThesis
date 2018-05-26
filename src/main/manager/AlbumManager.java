@@ -1,5 +1,6 @@
 package manager;
 
+import com.google.common.collect.Iterables;
 import manager.sorting.AlbumSortingMethod;
 import mapper.album.AlbumToAlbumDtoMapper;
 import model.album.Album;
@@ -7,16 +8,20 @@ import model.album.AlbumRating;
 import model.album.AlbumOrderingCriteria;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
 import request.album.*;
 import response.album.*;
 import service.AuthenticationService;
 import util.album.AlbumSortingMethodResolver;
+import validation.RequestValidator;
 
+import javax.validation.ConstraintViolation;
 import java.sql.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -31,10 +36,38 @@ final public class AlbumManager
     @Autowired
     private AlbumSortingMethodResolver albumSortingMethodResolver;
 
+    @Autowired
+    private RequestValidator requestValidator;
+
+    @Autowired
+    private Environment environment;
+
     public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
         Album album = new Album();
 
+        AddAlbumResponse addAlbumResponse = new AddAlbumResponse();
+
+        Set<ConstraintViolation<AddAlbumRequest>> validationErrors = this.requestValidator.validate(addAlbumRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            addAlbumResponse.setSuccessful(false);
+            addAlbumResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
+            return addAlbumResponse;
+        }
+
+        User user = authenticationService.findUserByUsername(addAlbumRequest.getUserName());
+
+        if (user == null)
+        {
+            addAlbumResponse.setSuccessful(false);
+            addAlbumResponse.setErrorMessage(this.environment.getProperty("user.not_found"));
+
+            return addAlbumResponse;
+        }
+
+        album.setUser(user);
         album.setArtist(addAlbumRequest.getArtist());
         album.setTitle(addAlbumRequest.getTitle());
 
@@ -47,20 +80,14 @@ final public class AlbumManager
         album.setAlbumCover(addAlbumRequest.getAlbumCover());
         album.setReleaseDate(Date.valueOf(addAlbumRequest.getReleaseDate()));
 
-        User user = authenticationService.findUserByUsername(addAlbumRequest.getUserName());
-        album.setUser(user);
-
-        AddAlbumResponse addAlbumResponse = new AddAlbumResponse();
-
         try
         {
             albumRepository.save(album);
         }
         catch (Exception e)
         {
-            e.printStackTrace();
             addAlbumResponse.setSuccessful(false);
-            addAlbumResponse.setErrorMessage(e.getMessage());
+            addAlbumResponse.setErrorMessage(this.environment.getProperty("album.add_album_error"));
 
             return addAlbumResponse;
         }
@@ -72,12 +99,21 @@ final public class AlbumManager
 
     public RateAlbumResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
     {
+        RateAlbumResponse rateAlbumResponse = new RateAlbumResponse();
+
+        Set<ConstraintViolation<RateAlbumRequest>> validationErrors = this.requestValidator.validate(rateAlbumRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            rateAlbumResponse.setSuccessful(false);
+            rateAlbumResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
+            return rateAlbumResponse;
+        }
+
         Album album = albumRepository.getOne(Long.valueOf(rateAlbumRequest.getAlbumId()));
 
         album.setAlbumRating(AlbumRating.valueOf(rateAlbumRequest.getAlbumRating()));
         album.setRatingDate(getCurrentDate());
-
-        RateAlbumResponse rateAlbumResponse = new RateAlbumResponse();
 
         try
         {

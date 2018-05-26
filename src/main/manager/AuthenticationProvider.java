@@ -1,5 +1,6 @@
 package manager;
 
+import com.google.common.collect.Iterables;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -10,6 +11,13 @@ import request.user.LoginRequest;
 import request.user.RegisterUserRequest;
 import response.user.LoginResponse;
 import response.user.RegisterUserResponse;
+import validation.RequestValidator;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import java.util.Set;
 
 @Component
 public class AuthenticationProvider
@@ -23,8 +31,23 @@ public class AuthenticationProvider
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private RequestValidator requestValidator;
+
     public RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest)
     {
+        RegisterUserResponse registerUserResponse = new RegisterUserResponse();
+
+        Set<ConstraintViolation<RegisterUserRequest>> validationErrors = this.requestValidator.validate
+                (registerUserRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            registerUserResponse.setSuccessful(false);
+            registerUserResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
+            return  registerUserResponse;
+        }
+
         String userName = registerUserRequest.getUserName();
         String password = registerUserRequest.getPassword();
 
@@ -32,7 +55,15 @@ public class AuthenticationProvider
         user.setUserName(userName);
         user.setPassword(bCryptPasswordEncoder.encode(password));
 
-        RegisterUserResponse registerUserResponse = new RegisterUserResponse();
+        User userByUsername = userRepository.findOneByUserName(userName);
+
+        if (userByUsername != null)
+        {
+            registerUserResponse.setSuccessful(false);
+            registerUserResponse.setErrorMessage(String.format("User with username %s has already been registered.",
+                    userName));
+            return registerUserResponse;
+        }
 
         User registeredUser;
         try
@@ -54,10 +85,19 @@ public class AuthenticationProvider
 
     public LoginResponse loginUser(LoginRequest loginRequest)
     {
+        LoginResponse loginResponse = new LoginResponse();
+
+        Set<ConstraintViolation<LoginRequest>> validationErrors = this.requestValidator.validate(loginRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            loginResponse.setSuccessful(false);
+            loginResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
+            return loginResponse;
+        }
+
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
-
-        LoginResponse loginResponse = new LoginResponse();
 
         User user = userRepository.findOneByUserName(userName);
 

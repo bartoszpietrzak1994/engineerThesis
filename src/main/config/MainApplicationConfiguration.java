@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
-@ComponentScan(basePackages = {"main", "controller", "client", "manager", "repository", "util"})
+@ComponentScan(basePackages = {"main", "controller", "client", "manager", "repository", "validation", "util"})
 @EnableJpaRepositories(basePackages = "repository")
 @PropertySource("classpath:user_interface.properties")
 public class MainApplicationConfiguration

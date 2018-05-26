@@ -37,7 +37,7 @@ final public class AlbumDetailsController implements Initializable
     private TextField rating;
 
     @FXML
-    private ImageView albumCoverView;
+    private ImageView albumCoverPreview;
 
     @FXML
     private Button close;
@@ -85,7 +85,7 @@ final public class AlbumDetailsController implements Initializable
         byte[] albumCover = album.getAlbumCover();
         if (albumCover != null)
         {
-            this.albumCoverView.setImage(new Image(new ByteArrayInputStream(album.getAlbumCover()), 160, 160,
+            this.albumCoverPreview.setImage(new Image(new ByteArrayInputStream(albumCover), 160, 160,
                     false, false));
         }
     }

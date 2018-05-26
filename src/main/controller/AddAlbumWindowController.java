@@ -48,7 +48,7 @@ final public class AddAlbumWindowController implements Initializable
     private DatePicker releaseDate;
 
     @FXML
-    private ImageView albumCoverView;
+    private ImageView albumCoverPreview;
 
     @FXML
     private Button browse;
@@ -109,7 +109,7 @@ final public class AddAlbumWindowController implements Initializable
         {
             String albumCoverPath = file.getAbsolutePath();
             albumCover.setText(albumCoverPath);
-            albumCoverView.setImage(new Image(file.toURI().toString()));
+            albumCoverPreview.setImage(new Image(file.toURI().toString()));
         }
     }
 
@@ -125,7 +125,7 @@ final public class AddAlbumWindowController implements Initializable
 
     private byte[] getAlbumCoverAsBytes()
     {
-        BufferedImage bImage = SwingFXUtils.fromFXImage(albumCoverView.getImage(), null);
+        BufferedImage bImage = SwingFXUtils.fromFXImage(albumCoverPreview.getImage(), null);
         ByteArrayOutputStream s = new ByteArrayOutputStream();
         try
         {

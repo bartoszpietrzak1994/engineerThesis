@@ -6,6 +6,8 @@ import request.user.RegisterUserRequest;
 import response.user.LoginResponse;
 import response.user.RegisterUserResponse;
 
+import javax.validation.Valid;
+
 public interface AuthenticationService
 {
     RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest);
