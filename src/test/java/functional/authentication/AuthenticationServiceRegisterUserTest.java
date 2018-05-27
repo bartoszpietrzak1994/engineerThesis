@@ -3,18 +3,13 @@ package functional.authentication;
 import functional.BaseFunctionalTest;
 import model.user.User;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import request.user.RegisterUserRequest;
 import response.user.RegisterUserResponse;
-import service.AuthenticationService;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class AuthenticationServiceRegisterUserTest extends BaseFunctionalTest
 {
-    @Autowired
-    private AuthenticationService authenticationService;
-
     @Test
     public void registerUserWhenValidRequestIsPassed()
     {

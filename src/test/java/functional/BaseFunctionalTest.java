@@ -1,5 +1,6 @@
 package functional;
 
+import com.google.common.collect.Iterables;
 import config.PersistenceConfiguration;
 import config.TestApplicationConfiguration;
 import model.album.AlbumRating;
@@ -7,12 +8,16 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
 import repository.AlbumRepository;
 import repository.UserRepository;
 import request.album.AddAlbumRequest;
+import request.album.FindAllUserAlbumRequest;
+import service.AlbumService;
+import service.AuthenticationService;
 
 import java.time.LocalDate;
 
@@ -22,10 +27,19 @@ import java.time.LocalDate;
 public class BaseFunctionalTest
 {
     @Autowired
-    protected AlbumRepository albumRepository;
+    private AlbumRepository albumRepository;
 
     @Autowired
-    protected UserRepository userRepository;
+    private UserRepository userRepository;
+
+    @Autowired
+    protected AlbumService albumService;
+
+    @Autowired
+    protected AuthenticationService authenticationService;
+
+    @Autowired
+    protected Environment environment;
 
     protected static final String USERNAME = "username";
     protected static final String PASSWORD = "password";
@@ -47,5 +61,13 @@ public class BaseFunctionalTest
         addAlbumRequest.setAlbumRating(AlbumRating.TEN);
 
         return addAlbumRequest;
+    }
+
+    protected String getLastAlbumId()
+    {
+        FindAllUserAlbumRequest findAllUserAlbumRequest = new FindAllUserAlbumRequest();
+        findAllUserAlbumRequest.setUserName(USERNAME);
+        return Iterables.getFirst(albumService.findAllAlbumsAddedByUser(findAllUserAlbumRequest)
+                .getAlbumList(), null).getAlbumId();
     }
 }

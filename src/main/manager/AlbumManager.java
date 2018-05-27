@@ -244,6 +244,7 @@ final public class AlbumManager
         {
             GetAlbumByIdResponse response = new GetAlbumByIdResponse();
             response.setSuccessful(false);
+            response.setErrorMessage(this.environment.getProperty("album.not_found"));
             return response;
         }
 

@@ -1,32 +1,17 @@
 package functional.album;
 
-import com.google.common.collect.Iterables;
 import functional.BaseFunctionalTest;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import request.album.AddAlbumRequest;
-import request.album.FindAllUserAlbumRequest;
 import request.album.GetAlbumCoverRequest;
 import request.user.RegisterUserRequest;
 import response.album.GetAlbumCoverResponse;
-import service.AlbumService;
-import service.AuthenticationService;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class AlbumServiceGetAlbumCoverTest extends BaseFunctionalTest
 {
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private AuthenticationService authenticationService;
-
-    @Autowired
-    private Environment environment;
-
     @Test
     public void testGetAlbumCoverWhenValidRequestIsPassed()
     {
@@ -36,13 +21,10 @@ public class AlbumServiceGetAlbumCoverTest extends BaseFunctionalTest
         byte[] albumCover = new byte[1024];
         addAlbumRequest.setAlbumCover(albumCover);
 
-        FindAllUserAlbumRequest findAllUserAlbumRequest = new FindAllUserAlbumRequest();
-        findAllUserAlbumRequest.setUserName(USERNAME);
-        String albumId = Iterables.getFirst(albumService.findAllAlbumsAddedByUser(findAllUserAlbumRequest)
-                .getAlbumList(), null).getAlbumId();
+        this.albumService.addAlbum(addAlbumRequest);
 
         GetAlbumCoverRequest getAlbumCoverRequest = new GetAlbumCoverRequest();
-        getAlbumCoverRequest.setAlbumId(albumId);
+        getAlbumCoverRequest.setAlbumId(getLastAlbumId());
 
         // WHEN
         GetAlbumCoverResponse getAlbumCoverResponse = this.albumService.getAlbumCover(getAlbumCoverRequest);

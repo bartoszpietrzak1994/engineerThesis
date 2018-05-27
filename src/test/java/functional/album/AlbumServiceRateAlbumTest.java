@@ -1,19 +1,13 @@
 package functional.album;
 
-import com.google.common.collect.Iterables;
 import functional.BaseFunctionalTest;
 import model.album.AlbumRating;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import request.album.AddAlbumRequest;
-import request.album.FindAllUserAlbumRequest;
 import request.album.RateAlbumRequest;
 import request.user.RegisterUserRequest;
 import response.GenericResponse;
-import service.AlbumService;
-import service.AuthenticationService;
 
 import java.time.LocalDate;
 
@@ -21,15 +15,6 @@ import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class AlbumServiceRateAlbumTest extends BaseFunctionalTest
 {
-    @Autowired
-    private AlbumService albumService;
-
-    @Autowired
-    private AuthenticationService authenticationService;
-
-    @Autowired
-    private Environment environment;
-
     @Test
     public void testRateAlbumWhenValidRequestIsPassed()
     {
@@ -43,13 +28,8 @@ public class AlbumServiceRateAlbumTest extends BaseFunctionalTest
 
         albumService.addAlbum(addAlbumRequest);
 
-        FindAllUserAlbumRequest findAllUserAlbumRequest = new FindAllUserAlbumRequest();
-        findAllUserAlbumRequest.setUserName(USERNAME);
-        String albumId = Iterables.getFirst(albumService.findAllAlbumsAddedByUser(findAllUserAlbumRequest)
-                .getAlbumList(), null).getAlbumId();
-
         RateAlbumRequest rateAlbumRequest = new RateAlbumRequest();
-        rateAlbumRequest.setAlbumId(albumId);
+        rateAlbumRequest.setAlbumId(getLastAlbumId());
         rateAlbumRequest.setAlbumRating(AlbumRating.TEN.toString());
 
         // WHEN
