@@ -182,7 +182,22 @@ final public class AlbumManager
                     null).getMessage());
         }
 
-        Optional<Album> albumOptional = albumRepository.findById(Long.valueOf(getAlbumCoverRequest.getAlbumId()));
+        Long albumId;
+
+        try
+        {
+            albumId = Long.valueOf(getAlbumCoverRequest.getAlbumId());
+        }
+        catch (NumberFormatException e)
+        {
+            GetAlbumCoverResponse getAlbumCoverResponse = new GetAlbumCoverResponse();
+            getAlbumCoverResponse.setSuccessful(false);
+            getAlbumCoverResponse.setErrorMessage(this.environment.getProperty("album.unexpected_error"));
+
+            return getAlbumCoverResponse;
+        }
+
+        Optional<Album> albumOptional = albumRepository.findById(albumId);
 
         GetAlbumCoverResponse response = new GetAlbumCoverResponse();
 
@@ -208,7 +223,22 @@ final public class AlbumManager
 
     public GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumByIdRequest)
     {
-        Optional<Album> albumById = albumRepository.findById(Long.valueOf(getAlbumByIdRequest.getAlbumId()));
+        Long albumId;
+
+        try
+        {
+            albumId = Long.valueOf(getAlbumByIdRequest.getAlbumId());
+        }
+        catch (NumberFormatException e)
+        {
+            GetAlbumByIdResponse getAlbumByIdResponse = new GetAlbumByIdResponse();
+            getAlbumByIdResponse.setSuccessful(false);
+            getAlbumByIdResponse.setErrorMessage(this.environment.getProperty("album.unexpected_error"));
+
+            return getAlbumByIdResponse;
+        }
+
+        Optional<Album> albumById = albumRepository.findById(albumId);
 
         if (!albumById.isPresent())
         {

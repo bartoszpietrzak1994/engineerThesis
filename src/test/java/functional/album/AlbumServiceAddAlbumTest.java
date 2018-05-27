@@ -26,9 +26,6 @@ public class AlbumServiceAddAlbumTest extends BaseFunctionalTest
     @Autowired
     private Environment environment;
 
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-
     @Test
     public void addAlbumWhenValidRequestIsPassed()
     {

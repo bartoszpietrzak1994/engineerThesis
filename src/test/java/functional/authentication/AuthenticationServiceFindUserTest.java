@@ -14,9 +14,6 @@ public class AuthenticationServiceFindUserTest extends BaseFunctionalTest
     @Autowired
     private AuthenticationService authenticationService;
 
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
-
     @Test
     public void findUserWhenItsAlreadyRegistered()
     {

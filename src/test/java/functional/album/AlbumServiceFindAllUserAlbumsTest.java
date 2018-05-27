@@ -2,8 +2,6 @@ package functional.album;
 
 import dto.album.AlbumDto;
 import functional.BaseFunctionalTest;
-import model.album.AlbumRating;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
@@ -14,7 +12,6 @@ import response.album.FindAllUserAlbumsResponse;
 import service.AlbumService;
 import service.AuthenticationService;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,9 +27,6 @@ public class AlbumServiceFindAllUserAlbumsTest extends BaseFunctionalTest
 
     @Autowired
     private Environment environment;
-
-    private static final String USERNAME = "username";
-    private static final String PASSWORD = "password";
 
     @Test
     public void testFindAllUserAlbumsWhenValidRequestIsPassed()
@@ -54,6 +48,8 @@ public class AlbumServiceFindAllUserAlbumsTest extends BaseFunctionalTest
 
         // THEN
         assertThat(allAlbumsAddedByUser).isNotNull();
+        assertThat(allAlbumsAddedByUser.isSuccessful()).isTrue();
+        assertThat(allAlbumsAddedByUser.getErrorMessage()).isBlank();
         List<AlbumDto> albumList = allAlbumsAddedByUser.getAlbumList();
 
         assertThat(albumList.size()).isEqualTo(2);
@@ -95,17 +91,5 @@ public class AlbumServiceFindAllUserAlbumsTest extends BaseFunctionalTest
         assertThat(allAlbumsAddedByUser.isSuccessful()).isFalse();
         // todo message
 
-    }
-
-    private AddAlbumRequest prepareAddAlbumRequest()
-    {
-        AddAlbumRequest addAlbumRequest = new AddAlbumRequest();
-        addAlbumRequest.setTitle(RandomStringUtils.randomAlphanumeric(5));
-        addAlbumRequest.setArtist(RandomStringUtils.randomAlphanumeric(5));
-        addAlbumRequest.setReleaseDate(LocalDate.now());
-        addAlbumRequest.setUserName(USERNAME);
-        addAlbumRequest.setAlbumRating(AlbumRating.TEN);
-
-        return addAlbumRequest;
     }
 }
