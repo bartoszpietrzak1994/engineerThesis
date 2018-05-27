@@ -26,9 +26,9 @@ import org.springframework.util.CollectionUtils;
 import request.album.FindAllUserAlbumRequest;
 import request.album.GetAlbumsOrderedByCriteriaRequest;
 import request.album.RateAlbumRequest;
+import response.GenericResponse;
 import response.album.FindAllUserAlbumsResponse;
 import response.album.GetAlbumsOrderedByCriteriaResponse;
-import response.album.RateAlbumResponse;
 import service.AlbumService;
 import util.album.AlbumPropertiesUtils;
 
@@ -147,7 +147,7 @@ final public class MainWindowController implements Initializable
         rateAlbumRequest.setAlbumId(albumId);
         rateAlbumRequest.setAlbumRating(albumRating);
 
-        RateAlbumResponse rateAlbumResponse = albumService.rateAlbum(rateAlbumRequest);
+        GenericResponse rateAlbumResponse = albumService.rateAlbum(rateAlbumRequest);
 
         if (!rateAlbumResponse.isSuccessful())
         {

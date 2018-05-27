@@ -4,6 +4,7 @@ import manager.AlbumManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import request.album.*;
+import response.GenericResponse;
 import response.album.*;
 import service.AlbumService;
 
@@ -14,13 +15,13 @@ public class AlbumServiceImpl implements AlbumService
     private AlbumManager albumManager;
 
     @Override
-    public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
+    public GenericResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
         return albumManager.addAlbum(addAlbumRequest);
     }
 
     @Override
-    public RateAlbumResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
+    public GenericResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
     {
         return albumManager.rateAlbum(rateAlbumRequest);
     }

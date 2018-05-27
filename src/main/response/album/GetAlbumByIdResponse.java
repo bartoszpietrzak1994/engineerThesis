@@ -2,13 +2,22 @@ package response.album;
 
 import dto.album.AlbumDto;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import request.album.GetAlbumByIdRequest;
+import response.GenericResponse;
 
-@Data
 @NoArgsConstructor
-public class GetAlbumByIdResponse
+public class GetAlbumByIdResponse extends GenericResponse
 {
-    private boolean isSuccessful;
-    private String errorMessage;
+    @Getter
+    @Setter
     private AlbumDto album;
+
+    public GetAlbumByIdResponse(AlbumDto album)
+    {
+        this.setSuccessful(true);
+        this.setAlbum(album);
+    }
 }

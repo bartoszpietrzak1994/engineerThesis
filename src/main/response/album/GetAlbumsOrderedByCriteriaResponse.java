@@ -2,15 +2,23 @@ package response.album;
 
 import dto.album.AlbumDto;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import response.GenericResponse;
 
 import java.util.List;
 
 @NoArgsConstructor
-@Data
-final public class GetAlbumsOrderedByCriteriaResponse
+final public class GetAlbumsOrderedByCriteriaResponse extends GenericResponse
 {
-    private boolean isSuccessful;
-    private String errorMessage;
+    @Getter
+    @Setter
     private List<AlbumDto> albums;
+
+    public GetAlbumsOrderedByCriteriaResponse(List<AlbumDto> albums)
+    {
+        this.setSuccessful(true);
+        this.setAlbums(albums);
+    }
 }

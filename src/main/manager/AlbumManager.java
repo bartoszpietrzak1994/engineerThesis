@@ -12,6 +12,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import repository.AlbumRepository;
 import request.album.*;
+import response.GenericResponse;
 import response.album.*;
 import service.AuthenticationService;
 import util.album.AlbumSortingMethodResolver;
@@ -42,21 +43,17 @@ final public class AlbumManager
     @Autowired
     private Environment environment;
 
-    public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
+    public GenericResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
-        Album album = new Album();
-
-        AddAlbumResponse addAlbumResponse = new AddAlbumResponse();
-
         Set<ConstraintViolation<AddAlbumRequest>> validationErrors = this.requestValidator.validate(addAlbumRequest);
 
         if (!validationErrors.isEmpty())
         {
-            addAlbumResponse.setSuccessful(false);
-            addAlbumResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
-            return addAlbumResponse;
+            return this.prepareValidationResponse(new GenericResponse(), Iterables.getFirst(validationErrors, null)
+                    .getMessage());
         }
 
+        GenericResponse addAlbumResponse = new GenericResponse();
         User user = authenticationService.findUserByUsername(addAlbumRequest.getUserName());
 
         if (user == null)
@@ -66,6 +63,8 @@ final public class AlbumManager
 
             return addAlbumResponse;
         }
+
+        Album album = new Album();
 
         album.setUser(user);
         album.setArtist(addAlbumRequest.getArtist());
@@ -92,25 +91,35 @@ final public class AlbumManager
             return addAlbumResponse;
         }
 
-        addAlbumResponse.setSuccessful(true);
-
-        return addAlbumResponse;
+        return new GenericResponse(true);
     }
 
-    public RateAlbumResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
+    public GenericResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
     {
-        RateAlbumResponse rateAlbumResponse = new RateAlbumResponse();
-
         Set<ConstraintViolation<RateAlbumRequest>> validationErrors = this.requestValidator.validate(rateAlbumRequest);
 
         if (!validationErrors.isEmpty())
         {
+            return this.prepareValidationResponse(new GenericResponse(), Iterables.getFirst(validationErrors, null)
+                    .getMessage());
+        }
+
+        Long albumId;
+
+        try
+        {
+            albumId = Long.valueOf(rateAlbumRequest.getAlbumId());
+        }
+        catch (NumberFormatException e)
+        {
+            GenericResponse rateAlbumResponse = new GenericResponse();
             rateAlbumResponse.setSuccessful(false);
-            rateAlbumResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
+            rateAlbumResponse.setErrorMessage(this.environment.getProperty("album.unexpected_error"));
+
             return rateAlbumResponse;
         }
 
-        Album album = albumRepository.getOne(Long.valueOf(rateAlbumRequest.getAlbumId()));
+        Album album = albumRepository.getOne(albumId);
 
         album.setAlbumRating(AlbumRating.valueOf(rateAlbumRequest.getAlbumRating()));
         album.setRatingDate(getCurrentDate());
@@ -121,21 +130,28 @@ final public class AlbumManager
         }
         catch (Exception e)
         {
+            GenericResponse rateAlbumResponse = new GenericResponse();
             rateAlbumResponse.setSuccessful(false);
             rateAlbumResponse.setErrorMessage(e.getMessage());
 
             return rateAlbumResponse;
         }
 
-        rateAlbumResponse.setSuccessful(true);
-
-        return rateAlbumResponse;
+        return new GenericResponse(true);
     }
 
     public FindAllUserAlbumsResponse findAllUserAlbums(FindAllUserAlbumRequest findAllUserAlbumRequest)
     {
-        String userName = findAllUserAlbumRequest.getUserName();
-        User user = authenticationService.findUserByUsername(userName);
+        Set<ConstraintViolation<FindAllUserAlbumRequest>> validationErrors = this.requestValidator.validate
+                (findAllUserAlbumRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            return this.prepareValidationResponse(new FindAllUserAlbumsResponse(), Iterables.getFirst
+                    (validationErrors, null).getMessage());
+        }
+
+        User user = authenticationService.findUserByUsername(findAllUserAlbumRequest.getUserName());
 
         FindAllUserAlbumsResponse response = new FindAllUserAlbumsResponse();
         List<Album> userAlbums;
@@ -151,14 +167,21 @@ final public class AlbumManager
             return response;
         }
 
-        response.setSuccessful(true);
-        response.setAlbumList(userAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect(Collectors.toList()));
-
-        return response;
+        return new FindAllUserAlbumsResponse(userAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect(Collectors
+                .toList()));
     }
 
     public GetAlbumCoverResponse getAlbumCover(GetAlbumCoverRequest getAlbumCoverRequest)
     {
+        Set<ConstraintViolation<GetAlbumCoverRequest>> validationErrors = this.requestValidator.validate
+                (getAlbumCoverRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            return this.prepareValidationResponse(new GetAlbumCoverResponse(), Iterables.getFirst(validationErrors,
+                    null).getMessage());
+        }
+
         Optional<Album> albumOptional = albumRepository.findById(Long.valueOf(getAlbumCoverRequest.getAlbumId()));
 
         GetAlbumCoverResponse response = new GetAlbumCoverResponse();
@@ -166,41 +189,35 @@ final public class AlbumManager
         if (!albumOptional.isPresent())
         {
             response.setSuccessful(false);
+            response.setErrorMessage(this.environment.getProperty("album.not_found"));
             return response;
         }
 
         Album album = albumOptional.get();
-        response.setSuccessful(true);
 
         byte[] albumCover = album.getAlbumCover();
         if (albumCover == null)
         {
             response.setSuccessful(false);
+            response.setErrorMessage(this.environment.getProperty("album.cover_not_found"));
             return response;
         }
 
-        response.setAlbumCover(albumCover);
-
-        return response;
+        return new GetAlbumCoverResponse(albumCover);
     }
 
     public GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumByIdRequest)
     {
         Optional<Album> albumById = albumRepository.findById(Long.valueOf(getAlbumByIdRequest.getAlbumId()));
 
-        GetAlbumByIdResponse response = new GetAlbumByIdResponse();
-
         if (!albumById.isPresent())
         {
+            GetAlbumByIdResponse response = new GetAlbumByIdResponse();
             response.setSuccessful(false);
             return response;
         }
 
-        Album album = albumById.get();
-        response.setSuccessful(true);
-        response.setAlbum(AlbumToAlbumDtoMapper.map(album));
-
-        return response;
+        return new GetAlbumByIdResponse(AlbumToAlbumDtoMapper.map(albumById.get()));
     }
 
     public GetAlbumsOrderedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
@@ -209,25 +226,31 @@ final public class AlbumManager
 
         AlbumSortingMethod sortingMethod = albumSortingMethodResolver.resolve(albumSortingCriteria);
 
-        GetAlbumsOrderedByCriteriaResponse response = new GetAlbumsOrderedByCriteriaResponse();
-
+        List<Album> sortedAlbums = null;
         try
         {
-            List<Album> sortedAlbums = sortingMethod.sort();
-            response.setSuccessful(true);
-            response.setAlbums(sortedAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect(Collectors.toList()));
+            sortedAlbums = sortingMethod.sort();
         }
         catch (Exception e)
         {
+            GetAlbumsOrderedByCriteriaResponse response = new GetAlbumsOrderedByCriteriaResponse();
             response.setSuccessful(false);
             response.setErrorMessage(e.getMessage());
         }
 
-        return response;
+        return new GetAlbumsOrderedByCriteriaResponse(sortedAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect
+                (Collectors.toList()));
     }
 
     private Date getCurrentDate()
     {
         return new Date(new java.util.Date().getTime());
+    }
+
+    private <T extends GenericResponse> T prepareValidationResponse(T response, String errorMessage)
+    {
+        response.setSuccessful(false);
+        response.setErrorMessage(errorMessage);
+        return response;
     }
 }

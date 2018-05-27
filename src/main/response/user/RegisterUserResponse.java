@@ -1,14 +1,14 @@
 package response.user;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import response.GenericResponse;
 
 @NoArgsConstructor
-@Data
-public class RegisterUserResponse
+public class RegisterUserResponse extends GenericResponse
 {
-    private boolean isSuccessful;
-    private String errorMessage;
+    @Getter
     private String userId;
 
     public RegisterUserResponse(String userId)

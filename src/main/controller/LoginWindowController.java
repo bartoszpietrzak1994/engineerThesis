@@ -18,7 +18,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import request.user.LoginRequest;
 import request.user.RegisterUserRequest;
-import response.user.LoginResponse;
+import response.GenericResponse;
 import response.user.RegisterUserResponse;
 import service.AuthenticationService;
 
@@ -88,13 +88,11 @@ final public class LoginWindowController implements Initializable
         String userName = this.login.getText();
         String password = this.password.getText();
 
-        LoginRequest loginRequest = new LoginRequest(userName, password);
+        GenericResponse genericResponse = authenticationService.login(new LoginRequest(userName, password));
 
-        LoginResponse loginResponse = authenticationService.login(loginRequest);
-
-        if (!loginResponse.isSuccessful())
+        if (!genericResponse.isSuccessful())
         {
-            this.message.setText(loginResponse.getErrorMessage());
+            this.message.setText(genericResponse.getErrorMessage());
             return;
         }
 

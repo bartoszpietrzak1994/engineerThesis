@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import request.user.LoginRequest;
 import request.user.RegisterUserRequest;
-import response.user.LoginResponse;
+import response.GenericResponse;
 import service.AuthenticationService;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -26,12 +26,12 @@ public class AuthenticationServiceLoginUserTest extends BaseFunctionalTest
         LoginRequest loginRequest = new LoginRequest(USERNAME, PASSWORD);
 
         // WHEN
-        LoginResponse loginResponse = authenticationService.login(loginRequest);
+        GenericResponse genericResponse = authenticationService.login(loginRequest);
 
         // THEN
-        assertThat(loginResponse).isNotNull();
-        assertThat(loginResponse.isSuccessful()).isTrue();
-        assertThat(loginResponse.getErrorMessage()).isNullOrEmpty();
+        assertThat(genericResponse).isNotNull();
+        assertThat(genericResponse.isSuccessful()).isTrue();
+        assertThat(genericResponse.getErrorMessage()).isNullOrEmpty();
     }
 
     @Test
@@ -42,12 +42,12 @@ public class AuthenticationServiceLoginUserTest extends BaseFunctionalTest
         LoginRequest loginRequest = new LoginRequest("", PASSWORD);
 
         // WHEN
-        LoginResponse loginResponse = authenticationService.login(loginRequest);
+        GenericResponse genericResponse = authenticationService.login(loginRequest);
 
         // THEN
-        assertThat(loginResponse).isNotNull();
-        assertThat(loginResponse.isSuccessful()).isFalse();
-        assertThat(loginResponse.getErrorMessage()).isEqualToIgnoringCase("must not be blank");
+        assertThat(genericResponse).isNotNull();
+        assertThat(genericResponse.isSuccessful()).isFalse();
+        assertThat(genericResponse.getErrorMessage()).isEqualToIgnoringCase("must not be blank");
     }
 
     @Test
@@ -58,11 +58,11 @@ public class AuthenticationServiceLoginUserTest extends BaseFunctionalTest
         LoginRequest loginRequest = new LoginRequest(USERNAME, "");
 
         // WHEN
-        LoginResponse loginResponse = authenticationService.login(loginRequest);
+        GenericResponse genericResponse = authenticationService.login(loginRequest);
 
         // THEN
-        assertThat(loginResponse).isNotNull();
-        assertThat(loginResponse.isSuccessful()).isFalse();
-        assertThat(loginResponse.getErrorMessage()).isEqualToIgnoringCase("must not be blank");
+        assertThat(genericResponse).isNotNull();
+        assertThat(genericResponse.isSuccessful()).isFalse();
+        assertThat(genericResponse.getErrorMessage()).isEqualToIgnoringCase("must not be blank");
     }
 }

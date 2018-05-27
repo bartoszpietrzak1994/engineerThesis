@@ -9,14 +9,11 @@ import org.springframework.stereotype.Component;
 import repository.UserRepository;
 import request.user.LoginRequest;
 import request.user.RegisterUserRequest;
-import response.user.LoginResponse;
+import response.GenericResponse;
 import response.user.RegisterUserResponse;
 import validation.RequestValidator;
 
 import javax.validation.ConstraintViolation;
-import javax.validation.Validation;
-import javax.validation.Validator;
-import javax.validation.ValidatorFactory;
 import java.util.Set;
 
 @Component
@@ -77,15 +74,12 @@ public class AuthenticationProvider
             return registerUserResponse;
         }
 
-        registerUserResponse.setSuccessful(true);
-        registerUserResponse.setUserId(String.valueOf(registeredUser.getUserId()));
-
-        return registerUserResponse;
+        return new RegisterUserResponse(String.valueOf(registeredUser.getUserId()));
     }
 
-    public LoginResponse loginUser(LoginRequest loginRequest)
+    public GenericResponse loginUser(LoginRequest loginRequest)
     {
-        LoginResponse loginResponse = new LoginResponse();
+        GenericResponse loginResponse = new GenericResponse();
 
         Set<ConstraintViolation<LoginRequest>> validationErrors = this.requestValidator.validate(loginRequest);
 

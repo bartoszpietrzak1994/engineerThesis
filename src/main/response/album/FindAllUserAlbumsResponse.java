@@ -1,16 +1,23 @@
 package response.album;
 
 import dto.album.AlbumDto;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import response.GenericResponse;
 
 import java.util.List;
 
-@Data
 @NoArgsConstructor
-public class FindAllUserAlbumsResponse
+public class FindAllUserAlbumsResponse extends GenericResponse
 {
-    private boolean isSuccessful;
-    private String errorMessage;
+    @Getter
+    @Setter
     private List<AlbumDto> albumList;
+
+    public FindAllUserAlbumsResponse(List<AlbumDto> albumList)
+    {
+        this.setSuccessful(true);
+        this.albumList = albumList;
+    }
 }

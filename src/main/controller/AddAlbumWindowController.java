@@ -15,7 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import request.album.AddAlbumRequest;
-import response.album.AddAlbumResponse;
+import response.GenericResponse;
 import service.AlbumService;
 
 import javax.imageio.ImageIO;
@@ -89,7 +89,7 @@ final public class AddAlbumWindowController implements Initializable
         addAlbumRequest.setUserName(this.userName);
         addAlbumRequest.setReleaseDate(releaseDate.getValue());
 
-        AddAlbumResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
+        GenericResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
 
         if (!addAlbumResponse.isSuccessful())
         {

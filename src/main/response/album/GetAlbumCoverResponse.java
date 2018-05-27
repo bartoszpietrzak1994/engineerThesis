@@ -1,14 +1,20 @@
 package response.album;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
+import response.GenericResponse;
 
-@Data
 @NoArgsConstructor
-public class GetAlbumCoverResponse
+public class GetAlbumCoverResponse extends GenericResponse
 {
-    private boolean isSuccessful;
-    private String errorMessage;
-
+    @Getter
+    @Setter
     private byte[] albumCover;
+
+    public GetAlbumCoverResponse(byte[] albumCover)
+    {
+        this.setSuccessful(true);
+        this.setAlbumCover(albumCover);
+    }
 }

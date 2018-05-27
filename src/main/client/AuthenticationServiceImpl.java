@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import request.user.LoginRequest;
 import request.user.RegisterUserRequest;
-import response.user.LoginResponse;
+import response.GenericResponse;
 import response.user.RegisterUserResponse;
 import service.AuthenticationService;
 
@@ -23,7 +23,7 @@ public class AuthenticationServiceImpl implements AuthenticationService
     }
 
     @Override
-    public LoginResponse login(LoginRequest loginRequest)
+    public GenericResponse login(LoginRequest loginRequest)
     {
         return authenticationProvider.loginUser(loginRequest);
     }

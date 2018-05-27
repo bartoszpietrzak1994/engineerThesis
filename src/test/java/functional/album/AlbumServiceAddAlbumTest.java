@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import request.album.AddAlbumRequest;
 import request.user.RegisterUserRequest;
-import response.album.AddAlbumResponse;
+import response.GenericResponse;
 import service.AlbumService;
 import service.AuthenticationService;
 
@@ -43,7 +43,7 @@ public class AlbumServiceAddAlbumTest extends BaseFunctionalTest
         addAlbumRequest.setAlbumRating(AlbumRating.TEN);
 
         // WHEN
-        AddAlbumResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
+        GenericResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
 
         // THEN
         assertThat(addAlbumResponse).isNotNull();
@@ -63,7 +63,7 @@ public class AlbumServiceAddAlbumTest extends BaseFunctionalTest
         addAlbumRequest.setAlbumRating(AlbumRating.TEN);
 
         // WHEN
-        AddAlbumResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
+        GenericResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
 
         // THEN
         assertThat(addAlbumResponse).isNotNull();
@@ -78,11 +78,12 @@ public class AlbumServiceAddAlbumTest extends BaseFunctionalTest
         AddAlbumRequest addAlbumRequest = new AddAlbumRequest();
 
         // WHEN
-        AddAlbumResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
+        GenericResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
 
         // THEN
         assertThat(addAlbumResponse).isNotNull();
         assertThat(addAlbumResponse.isSuccessful()).isFalse();
-        assertThat(addAlbumResponse.getErrorMessage()).isEqualToIgnoringCase(environment.getProperty("album.add_album_error"));
+        assertThat(addAlbumResponse.getErrorMessage()).isEqualToIgnoringCase(environment.getProperty("album" + "" +
+                ".add_album_error"));
     }
 }

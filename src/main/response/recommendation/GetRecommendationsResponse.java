@@ -1,15 +1,20 @@
 package response.recommendation;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import response.GenericResponse;
 
 import java.util.List;
 
-@Data
 @NoArgsConstructor
-final public class GetRecommendationsResponse
+final public class GetRecommendationsResponse extends GenericResponse
 {
-    private boolean isSuccessful;
-    private String errorMessage;
+    @Getter
     private List<String> recommendedArtists;
+
+    public GetRecommendationsResponse(List<String> recommendedArtists)
+    {
+        this.setSuccessful(true);
+        this.recommendedArtists = recommendedArtists;
+    }
 }
