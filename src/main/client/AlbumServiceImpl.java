@@ -47,6 +47,6 @@ public class AlbumServiceImpl implements AlbumService
     @Override
     public GetAlbumsOrderedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
     {
-        return albumManager.getAlbumsGrouppedByCriteria(request);
+        return albumManager.getAlbumsGroupedByCriteria(request);
     }
 }

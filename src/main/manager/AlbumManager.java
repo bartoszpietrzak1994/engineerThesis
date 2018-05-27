@@ -251,7 +251,7 @@ final public class AlbumManager
         return new GetAlbumByIdResponse(AlbumToAlbumDtoMapper.map(albumById.get()));
     }
 
-    public GetAlbumsOrderedByCriteriaResponse getAlbumsGrouppedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
+    public GetAlbumsOrderedByCriteriaResponse getAlbumsGroupedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
     {
         AlbumOrderingCriteria albumSortingCriteria = AlbumOrderingCriteria.valueOf(request.getSortingCriteria());
 
