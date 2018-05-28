@@ -6,7 +6,7 @@ import response.album.*;
 
 public interface AlbumService
 {
-    GenericResponse addAlbum(AddAlbumRequest addAlbumRequest);
+    AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest);
     GenericResponse rateAlbum(RateAlbumRequest addAlbumRequest);
     FindAllUserAlbumsResponse findAllAlbumsAddedByUser(FindAllUserAlbumRequest findAllUserAlbumRequest);
     GetAlbumCoverResponse getAlbumCover(GetAlbumCoverRequest getAlbumCoverRequest);

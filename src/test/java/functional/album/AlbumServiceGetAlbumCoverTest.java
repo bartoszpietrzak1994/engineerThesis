@@ -6,6 +6,7 @@ import org.junit.Test;
 import request.album.AddAlbumRequest;
 import request.album.GetAlbumCoverRequest;
 import request.user.RegisterUserRequest;
+import response.album.AddAlbumResponse;
 import response.album.GetAlbumCoverResponse;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -21,10 +22,10 @@ public class AlbumServiceGetAlbumCoverTest extends BaseFunctionalTest
         byte[] albumCover = new byte[1024];
         addAlbumRequest.setAlbumCover(albumCover);
 
-        this.albumService.addAlbum(addAlbumRequest);
+        AddAlbumResponse addAlbumResponse = this.albumService.addAlbum(addAlbumRequest);
 
         GetAlbumCoverRequest getAlbumCoverRequest = new GetAlbumCoverRequest();
-        getAlbumCoverRequest.setAlbumId(getLastAlbumId());
+        getAlbumCoverRequest.setAlbumId(addAlbumResponse.getAlbumId());
 
         // WHEN
         GetAlbumCoverResponse getAlbumCoverResponse = this.albumService.getAlbumCover(getAlbumCoverRequest);

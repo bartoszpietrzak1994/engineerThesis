@@ -15,7 +15,7 @@ public class AlbumServiceImpl implements AlbumService
     private AlbumManager albumManager;
 
     @Override
-    public GenericResponse addAlbum(AddAlbumRequest addAlbumRequest)
+    public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
         return albumManager.addAlbum(addAlbumRequest);
     }

@@ -24,10 +24,10 @@ import java.time.LocalDate;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {TestApplicationConfiguration.class, PersistenceConfiguration.class},
         loader = AnnotationConfigContextLoader.class)
-public class BaseFunctionalTest
+public abstract class BaseFunctionalTest
 {
     @Autowired
-    private AlbumRepository albumRepository;
+    protected AlbumRepository albumRepository;
 
     @Autowired
     private UserRepository userRepository;

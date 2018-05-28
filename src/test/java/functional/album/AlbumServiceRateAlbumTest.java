@@ -8,6 +8,7 @@ import request.album.AddAlbumRequest;
 import request.album.RateAlbumRequest;
 import request.user.RegisterUserRequest;
 import response.GenericResponse;
+import response.album.AddAlbumResponse;
 
 import java.time.LocalDate;
 
@@ -26,10 +27,10 @@ public class AlbumServiceRateAlbumTest extends BaseFunctionalTest
         addAlbumRequest.setArtist("test_artist");
         addAlbumRequest.setTitle("test_title");
 
-        albumService.addAlbum(addAlbumRequest);
+        AddAlbumResponse addAlbumResponse = albumService.addAlbum(addAlbumRequest);
 
         RateAlbumRequest rateAlbumRequest = new RateAlbumRequest();
-        rateAlbumRequest.setAlbumId(getLastAlbumId());
+        rateAlbumRequest.setAlbumId(addAlbumResponse.getAlbumId());
         rateAlbumRequest.setAlbumRating(AlbumRating.TEN.toString());
 
         // WHEN

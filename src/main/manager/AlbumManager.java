@@ -43,17 +43,17 @@ final public class AlbumManager
     @Autowired
     private Environment environment;
 
-    public GenericResponse addAlbum(AddAlbumRequest addAlbumRequest)
+    public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
         Set<ConstraintViolation<AddAlbumRequest>> validationErrors = this.requestValidator.validate(addAlbumRequest);
 
         if (!validationErrors.isEmpty())
         {
-            return this.prepareValidationResponse(new GenericResponse(), Iterables.getFirst(validationErrors, null)
+            return this.prepareValidationResponse(new AddAlbumResponse(), Iterables.getFirst(validationErrors, null)
                     .getMessage());
         }
 
-        GenericResponse addAlbumResponse = new GenericResponse();
+        AddAlbumResponse addAlbumResponse = new AddAlbumResponse();
         User user = authenticationService.findUserByUsername(addAlbumRequest.getUserName());
 
         if (user == null)
@@ -79,9 +79,10 @@ final public class AlbumManager
         album.setAlbumCover(addAlbumRequest.getAlbumCover());
         album.setReleaseDate(Date.valueOf(addAlbumRequest.getReleaseDate()));
 
+        Album savedAlbum;
         try
         {
-            albumRepository.save(album);
+            savedAlbum = albumRepository.save(album);
         }
         catch (Exception e)
         {
@@ -91,7 +92,7 @@ final public class AlbumManager
             return addAlbumResponse;
         }
 
-        return new GenericResponse(true);
+        return new AddAlbumResponse(String.valueOf(savedAlbum.getAlbumId()));
     }
 
     public GenericResponse rateAlbum(RateAlbumRequest rateAlbumRequest)

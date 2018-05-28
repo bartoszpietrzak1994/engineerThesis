@@ -6,6 +6,7 @@ import org.junit.Test;
 import request.album.AddAlbumRequest;
 import request.album.GetAlbumByIdRequest;
 import request.user.RegisterUserRequest;
+import response.album.AddAlbumResponse;
 import response.album.GetAlbumByIdResponse;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
@@ -19,10 +20,10 @@ public class AlbumServiceGetAlbumByIdTest extends BaseFunctionalTest
         this.authenticationService.registerUser(new RegisterUserRequest(USERNAME, PASSWORD));
         AddAlbumRequest addAlbumRequest = prepareAddAlbumRequest();
 
-        this.albumService.addAlbum(addAlbumRequest);
+        AddAlbumResponse addAlbumResponse = this.albumService.addAlbum(addAlbumRequest);
 
         GetAlbumByIdRequest getAlbumByIdRequest = new GetAlbumByIdRequest();
-        getAlbumByIdRequest.setAlbumId(getLastAlbumId());
+        getAlbumByIdRequest.setAlbumId(addAlbumResponse.getAlbumId());
 
         // WHEN
         GetAlbumByIdResponse getAlbumByIdResponse = this.albumService.getAlbumById(getAlbumByIdRequest);
