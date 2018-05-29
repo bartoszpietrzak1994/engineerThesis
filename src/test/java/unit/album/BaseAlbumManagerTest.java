@@ -1,6 +1,10 @@
 package unit.album;
 
 import manager.AlbumManager;
+import model.album.Album;
+import model.album.AlbumRating;
+import model.user.User;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Before;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -10,6 +14,9 @@ import service.AuthenticationService;
 import unit.BaseUnitTest;
 import util.album.AlbumSortingMethodResolver;
 import validation.RequestValidator;
+
+import java.sql.Date;
+import java.time.LocalDate;
 
 import static org.mockito.Mockito.mock;
 
@@ -46,5 +53,20 @@ public class BaseAlbumManagerTest extends BaseUnitTest
 
         this.albumManager = new AlbumManager(albumRepository, authenticationService, albumSortingMethodResolver,
                 requestValidator, environment);
+    }
+
+    protected Album prepareAlbum()
+    {
+        Album album = new Album();
+        album.setTitle(RandomStringUtils.randomAlphanumeric(5));
+        album.setArtist(RandomStringUtils.randomAlphanumeric(5));
+        album.setAlbumRating(AlbumRating.TEN);
+        album.setRatingDate(new Date(LocalDate.now().toEpochDay()));
+        album.setReleaseDate(new Date(LocalDate.now().toEpochDay()));
+        album.setUser(new User());
+        album.setAlbumCover(new byte[1]);
+        album.setAlbumId(Long.valueOf(RandomStringUtils.randomNumeric(3)));
+
+        return album;
     }
 }
