@@ -168,17 +168,25 @@ public class AlbumManager
 
         User user = authenticationService.findUserByUsername(findAllUserAlbumRequest.getUserName());
 
-        FindAllUserAlbumsResponse response = new FindAllUserAlbumsResponse();
-        List<Album> userAlbums;
+        if (user == null)
+        {
+            FindAllUserAlbumsResponse findAllUserAlbumsResponse = new FindAllUserAlbumsResponse();
+            findAllUserAlbumsResponse.setSuccessful(false);
+            findAllUserAlbumsResponse.setErrorMessage(this.environment.getProperty("user.not_found"));
 
+            return findAllUserAlbumsResponse;
+        }
+
+        List<Album> userAlbums;
         try
         {
-             userAlbums = albumRepository.findAllByUser(user);
+            userAlbums = albumRepository.findAllByUser(user);
         }
         catch (Exception e)
         {
+            FindAllUserAlbumsResponse response = new FindAllUserAlbumsResponse();
             response.setSuccessful(false);
-            response.setErrorMessage(e.getMessage());
+            response.setErrorMessage(environment.getProperty("album.unexpected_error"));
             return response;
         }
 
