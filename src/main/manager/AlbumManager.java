@@ -127,6 +127,15 @@ public class AlbumManager
 
         Album album = albumRepository.getOne(albumId);
 
+        if (album == null)
+        {
+            GenericResponse rateAlbumResponse = new GenericResponse();
+            rateAlbumResponse.setSuccessful(false);
+            rateAlbumResponse.setErrorMessage(this.environment.getProperty("album.not_found"));
+
+            return rateAlbumResponse;
+        }
+
         album.setAlbumRating(AlbumRating.valueOf(rateAlbumRequest.getAlbumRating()));
         album.setRatingDate(getCurrentDate());
 
@@ -138,7 +147,7 @@ public class AlbumManager
         {
             GenericResponse rateAlbumResponse = new GenericResponse();
             rateAlbumResponse.setSuccessful(false);
-            rateAlbumResponse.setErrorMessage(e.getMessage());
+            rateAlbumResponse.setErrorMessage(this.environment.getProperty("album.unexpected_error"));
 
             return rateAlbumResponse;
         }

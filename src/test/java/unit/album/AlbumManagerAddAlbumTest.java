@@ -3,19 +3,11 @@ package unit.album;
 import manager.AlbumManager;
 import model.album.Album;
 import model.user.User;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
-import org.springframework.core.env.Environment;
-import repository.AlbumRepository;
 import request.album.AddAlbumRequest;
 import response.GenericResponse;
 import response.album.AddAlbumResponse;
-import service.AuthenticationService;
-import unit.BaseUnitTest;
-import util.album.AlbumSortingMethodResolver;
 import validation.RequestValidator;
 
 import java.time.LocalDate;
@@ -23,43 +15,9 @@ import java.util.HashSet;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
 
-public class AlbumManagerAddAlbumTest extends BaseUnitTest
+public class AlbumManagerAddAlbumTest extends BaseAlbumManagerTest
 {
-    @Mock
-    private AlbumRepository albumRepository;
-
-    @Mock
-    private AlbumManager albumManager;
-
-    @Mock
-    private AuthenticationService authenticationService;
-
-    @Mock
-    private AlbumSortingMethodResolver albumSortingMethodResolver;
-
-    @Mock
-    private RequestValidator requestValidator;
-
-    @Mock
-    private Environment environment;
-
-    @Before
-    public void setUp()
-    {
-        this.albumRepository = mock(AlbumRepository.class);
-        this.authenticationService = mock(AuthenticationService.class);
-        this.albumSortingMethodResolver = mock(AlbumSortingMethodResolver.class);
-        this.requestValidator = mock(RequestValidator.class);
-        this.environment = mock(Environment.class);
-        this.albumManager = mock(AlbumManager.class);
-        MockitoAnnotations.initMocks(this);
-
-        this.albumManager = new AlbumManager(albumRepository, authenticationService, albumSortingMethodResolver,
-                requestValidator, environment);
-    }
-
     @Test
     public void itReturnsAddAlbumResponse()
     {
