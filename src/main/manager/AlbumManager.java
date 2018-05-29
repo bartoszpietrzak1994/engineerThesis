@@ -26,19 +26,24 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
-final public class AlbumManager
+public class AlbumManager
 {
-    @Autowired
     private AlbumRepository albumRepository;
-
-    @Autowired
     private AuthenticationService authenticationService;
-
-    @Autowired
     private AlbumSortingMethodResolver albumSortingMethodResolver;
+    private RequestValidator requestValidator;
 
     @Autowired
-    private RequestValidator requestValidator;
+    public AlbumManager(AlbumRepository albumRepository, AuthenticationService authenticationService,
+                        AlbumSortingMethodResolver albumSortingMethodResolver, RequestValidator requestValidator,
+                        Environment environment)
+    {
+        this.albumRepository = albumRepository;
+        this.authenticationService = authenticationService;
+        this.albumSortingMethodResolver = albumSortingMethodResolver;
+        this.requestValidator = requestValidator;
+        this.environment = environment;
+    }
 
     @Autowired
     private Environment environment;

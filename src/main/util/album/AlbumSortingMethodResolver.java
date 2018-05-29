@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 
 @Component
-final public class AlbumSortingMethodResolver
+public class AlbumSortingMethodResolver
 {
     @Autowired
     private List<AlbumSortingMethod> albumSortingMethods;
