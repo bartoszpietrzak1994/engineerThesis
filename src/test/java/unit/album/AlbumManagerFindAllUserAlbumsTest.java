@@ -1,13 +1,11 @@
 package unit.album;
 
 import manager.AlbumManager;
-import model.album.Album;
 import model.user.User;
 import org.junit.Test;
 import org.mockito.Mockito;
 import request.album.AddAlbumRequest;
 import request.album.FindAllUserAlbumRequest;
-import request.album.RateAlbumRequest;
 import response.GenericResponse;
 import response.album.FindAllUserAlbumsResponse;
 import validation.RequestValidator;

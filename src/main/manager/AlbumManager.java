@@ -246,6 +246,15 @@ public class AlbumManager
 
     public GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumByIdRequest)
     {
+        Set<ConstraintViolation<GetAlbumByIdRequest>> validationErrors = this.requestValidator.validate
+                (getAlbumByIdRequest);
+
+        if (!validationErrors.isEmpty())
+        {
+            return this.prepareValidationResponse(new GetAlbumByIdResponse(), Iterables.getFirst(validationErrors,
+                    null).getMessage());
+        }
+
         Long albumId;
 
         try
@@ -276,6 +285,15 @@ public class AlbumManager
 
     public GetAlbumsOrderedByCriteriaResponse getAlbumsGroupedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
     {
+        Set<ConstraintViolation<GetAlbumsOrderedByCriteriaRequest>> validationErrors = this.requestValidator.validate
+                (request);
+
+        if (!validationErrors.isEmpty())
+        {
+            return this.prepareValidationResponse(new GetAlbumsOrderedByCriteriaResponse(), Iterables.getFirst
+                    (validationErrors, null).getMessage());
+        }
+
         AlbumOrderingCriteria albumSortingCriteria = AlbumOrderingCriteria.valueOf(request.getSortingCriteria());
 
         AlbumSortingMethod sortingMethod = albumSortingMethodResolver.resolve(albumSortingCriteria);

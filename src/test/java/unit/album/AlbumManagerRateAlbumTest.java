@@ -48,7 +48,7 @@ public class AlbumManagerRateAlbumTest extends BaseAlbumManagerTest
 
         // THEN
         assertThat(genericResponse.isSuccessful()).isFalse();
-        assertThat(genericResponse.getErrorMessage()).isEqualToIgnoringCase("must not be null");
+        assertThat(genericResponse.getErrorMessage()).contains("must not be");
     }
 
     @Test

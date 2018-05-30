@@ -51,7 +51,7 @@ public class AlbumManagerGetAlbumCoverTest extends BaseAlbumManagerTest
 
         // THEN
         assertThat(albumCover.isSuccessful()).isFalse();
-        assertThat(albumCover.getErrorMessage()).isEqualToIgnoringCase("must no be blank");
+        assertThat(albumCover.getErrorMessage()).contains("must not be");
         assertThat(albumCover.getAlbumCover()).isNull();
     }
 

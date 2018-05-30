@@ -20,7 +20,7 @@ import java.time.LocalDate;
 
 import static org.mockito.Mockito.mock;
 
-public class BaseAlbumManagerTest extends BaseUnitTest
+public abstract class BaseAlbumManagerTest extends BaseUnitTest
 {
     @Mock
     protected AlbumRepository albumRepository;

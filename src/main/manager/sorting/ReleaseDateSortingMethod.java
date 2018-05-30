@@ -11,8 +11,13 @@ import java.util.List;
 @Component
 public class ReleaseDateSortingMethod extends AlbumSortingMethod
 {
-    @Autowired
     private AlbumRepository albumRepository;
+
+    @Autowired
+    public ReleaseDateSortingMethod(AlbumRepository albumRepository)
+    {
+        this.albumRepository = albumRepository;
+    }
 
     public ReleaseDateSortingMethod()
     {

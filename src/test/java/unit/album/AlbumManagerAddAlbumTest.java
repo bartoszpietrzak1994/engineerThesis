@@ -48,7 +48,7 @@ public class AlbumManagerAddAlbumTest extends BaseAlbumManagerTest
 
         // THEN
         assertThat(addAlbumResponse.isSuccessful()).isFalse();
-        assertThat(addAlbumResponse.getErrorMessage()).isEqualToIgnoringCase("must not be null");
+        assertThat(addAlbumResponse.getErrorMessage()).contains("must not be");
         assertThat(addAlbumResponse.getAlbumId()).isNull();
     }
 
