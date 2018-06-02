@@ -19,17 +19,20 @@ import java.util.Set;
 @Component
 public class AuthenticationProvider
 {
-    @Autowired
     private UserRepository userRepository;
-
-    @Autowired
     private Environment environment;
-
-    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private RequestValidator requestValidator;
 
     @Autowired
-    private RequestValidator requestValidator;
+    public AuthenticationProvider(UserRepository userRepository, Environment environment, BCryptPasswordEncoder
+            bCryptPasswordEncoder, RequestValidator requestValidator)
+    {
+        this.userRepository = userRepository;
+        this.environment = environment;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.requestValidator = requestValidator;
+    }
 
     public RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest)
     {
@@ -42,7 +45,7 @@ public class AuthenticationProvider
         {
             registerUserResponse.setSuccessful(false);
             registerUserResponse.setErrorMessage(Iterables.getFirst(validationErrors, null).getMessage());
-            return  registerUserResponse;
+            return registerUserResponse;
         }
 
         String userName = registerUserRequest.getUserName();
@@ -70,7 +73,7 @@ public class AuthenticationProvider
         catch (Exception e)
         {
             registerUserResponse.setSuccessful(false);
-            registerUserResponse.setErrorMessage(e.getMessage());
+            registerUserResponse.setErrorMessage(environment.getProperty("user.unexpected_error"));
             return registerUserResponse;
         }
 

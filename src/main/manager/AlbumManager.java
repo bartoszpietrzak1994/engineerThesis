@@ -307,7 +307,9 @@ public class AlbumManager
         {
             GetAlbumsOrderedByCriteriaResponse response = new GetAlbumsOrderedByCriteriaResponse();
             response.setSuccessful(false);
-            response.setErrorMessage(e.getMessage());
+            response.setErrorMessage(environment.getProperty("album.unexpected_error"));
+
+            return response;
         }
 
         return new GetAlbumsOrderedByCriteriaResponse(sortedAlbums.stream().map(AlbumToAlbumDtoMapper::map).collect

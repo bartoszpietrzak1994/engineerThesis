@@ -49,7 +49,7 @@ public class AlbumManagerFindAllUserAlbumsTest extends BaseAlbumManagerTest
 
         // THEN
         assertThat(allUserAlbums.isSuccessful()).isFalse();
-        assertThat(allUserAlbums.getErrorMessage()).isEqualToIgnoringCase("must not be blank");
+        assertThat(allUserAlbums.getErrorMessage()).contains("must not be");
         assertThat(allUserAlbums.getAlbumList()).isNull();
     }
 
