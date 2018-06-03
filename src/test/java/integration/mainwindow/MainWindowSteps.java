@@ -7,7 +7,6 @@ import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.testfx.framework.junit.ApplicationTest;
 import repository.UserRepository;
 import testfx.MainWindowTest;
@@ -48,6 +47,18 @@ final public class MainWindowSteps extends ApplicationTest
     public void i_click_Rate_button() throws Exception
     {
         this.mainWindowTest.clickRateButton();
+    }
+
+    @When("^I choose (\\w+) rating option$")
+    public void i_choose_rating_option(String ratingOption)
+    {
+        this.mainWindowTest.chooseRatingOption(ratingOption);
+    }
+
+    @Then("^the album should be rated with (\\w+)$")
+    public void the_album_should_be_rated_with(String ratingOption)
+    {
+        this.mainWindowTest.albumShouldBeRatedWith(ratingOption);
     }
 
     @When("^I click Get Recommendations button$")
@@ -114,7 +125,6 @@ final public class MainWindowSteps extends ApplicationTest
     @Then("^I should be able to see my album collection$")
     public void i_should_be_able_to_see_my_album_collection() throws Exception
     {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertThat(this.mainWindowTest.albumCollectionIsVisible()).isTrue();
     }
 }

@@ -4,9 +4,12 @@ Feature: Being able to see basic user controls
   I want to be able to access basic user controls
 
 Background:
-  Given I am a logged in user
-  And a random album is added to collection
+  Given the user Tomek is already registered
+  And I am at login and register window
+  And I type Tomek as user name and password as password
+  And I click Login button
   And I visit the main application window
+  And a random album is added to collection
 
 Scenario: I am able to see my album collection
   When I visit the main application window
@@ -18,8 +21,9 @@ Scenario: I am able to add album data
 
 Scenario: I am able to rate an album from collection
   When I choose the first album from my collection
+  And I choose EIGHT rating option
   And I click Rate button
-  Then I the Rate Album window should appear
+  Then the album should be rated with EIGHT
 
 Scenario: I am able to receive music recommendations based on albums from my collection
   When I click Get Recommendations button
