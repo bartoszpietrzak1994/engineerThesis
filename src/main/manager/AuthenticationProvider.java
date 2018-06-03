@@ -52,15 +52,15 @@ public class AuthenticationProvider
         String password = registerUserRequest.getPassword();
 
         User user = new User();
-        user.setUserName(userName);
+        user.setUsername(userName);
         user.setPassword(bCryptPasswordEncoder.encode(password));
 
-        User userByUsername = userRepository.findOneByUserName(userName);
+        User userByUsername = userRepository.findOneByUsername(userName);
 
         if (userByUsername != null)
         {
             registerUserResponse.setSuccessful(false);
-            registerUserResponse.setErrorMessage(String.format("User with username %s has already been registered.",
+            registerUserResponse.setErrorMessage(String.format(environment.getProperty("user.already_registered"),
                     userName));
             return registerUserResponse;
         }
@@ -96,7 +96,7 @@ public class AuthenticationProvider
         String userName = loginRequest.getUserName();
         String password = loginRequest.getPassword();
 
-        User user = userRepository.findOneByUserName(userName);
+        User user = userRepository.findOneByUsername(userName);
 
         if (user == null)
         {
@@ -120,6 +120,6 @@ public class AuthenticationProvider
 
     public User findUserByUsername(String userName)
     {
-        return userRepository.findOneByUserName(userName);
+        return userRepository.findOneByUsername(userName);
     }
 }

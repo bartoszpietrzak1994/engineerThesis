@@ -4,10 +4,8 @@ import cucumber.api.java.en.Given;
 import integration.SpringIntegrationTest;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import repository.UserRepository;
 
-@Component
 final public class MainWindowSetupSteps extends SpringIntegrationTest
 {
     @Autowired
@@ -17,7 +15,7 @@ final public class MainWindowSetupSteps extends SpringIntegrationTest
     public void i_am_a_logged_in_user() throws Exception
     {
         User user = new User();
-        user.setUserName("user");
+        user.setUsername("user");
         user.setPassword("password");
         userRepository.save(user);
         userRepository.flush();

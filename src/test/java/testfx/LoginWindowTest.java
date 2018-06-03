@@ -5,9 +5,12 @@ import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
@@ -57,5 +60,37 @@ public class LoginWindowTest extends ApplicationTest
         FxToolkit.hideStage();
         release(new KeyCode[]{});
         release(new MouseButton[]{});
+    }
+
+    public void fillLoginFieldWithLogin(String login)
+    {
+        ((TextField)GuiTest.find("#login")).setText(login);
+    }
+
+    public void fillPasswordFieldWithPassword(String password)
+    {
+        ((TextField)GuiTest.find("#password")).setText(password);
+    }
+
+    public void clickLoginButton()
+    {
+        clickOn("#loginButton");
+    }
+
+    public void clickRegisterButton()
+    {
+        clickOn("#registerButton");
+    }
+
+    public boolean messageShouldBeVisible(String expectedMessage)
+    {
+        Label message = lookup("#message").query();
+
+        if (message == null)
+        {
+            return false;
+        }
+
+        return message.getText().equals(expectedMessage);
     }
 }

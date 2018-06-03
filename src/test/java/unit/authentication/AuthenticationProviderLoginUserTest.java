@@ -21,7 +21,7 @@ public class AuthenticationProviderLoginUserTest extends BaseAuthenticationProvi
     {
         // GIVEN
         Mockito.when(requestValidator.validate(any(LoginRequest.class ))).thenReturn(new HashSet<>());
-        Mockito.when(userRepository.findOneByUserName(USERNAME)).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric
+        Mockito.when(userRepository.findOneByUsername(USERNAME)).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric
                 (5)), USERNAME, PASSWORD));
         Mockito.when(bCryptPasswordEncoder.matches(PASSWORD, PASSWORD)).thenReturn(true);
 
@@ -59,7 +59,7 @@ public class AuthenticationProviderLoginUserTest extends BaseAuthenticationProvi
     {
         // GIVEN
         Mockito.when(requestValidator.validate(any(LoginRequest.class ))).thenReturn(new HashSet<>());
-        Mockito.when(userRepository.findOneByUserName(USERNAME)).thenReturn(null);
+        Mockito.when(userRepository.findOneByUsername(USERNAME)).thenReturn(null);
         Mockito.when(bCryptPasswordEncoder.matches(PASSWORD, PASSWORD)).thenReturn(true);
         Mockito.when(environment.getProperty("user.not_found")).thenReturn("Requested user not found");
 
@@ -78,7 +78,7 @@ public class AuthenticationProviderLoginUserTest extends BaseAuthenticationProvi
     {
         // GIVEN
         Mockito.when(requestValidator.validate(any(LoginRequest.class ))).thenReturn(new HashSet<>());
-        Mockito.when(userRepository.findOneByUserName(USERNAME)).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric
+        Mockito.when(userRepository.findOneByUsername(USERNAME)).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric
                 (5)), USERNAME, PASSWORD));
         Mockito.when(bCryptPasswordEncoder.matches(PASSWORD, PASSWORD)).thenReturn(false);
         Mockito.when(environment.getProperty("user.invalid_password")).thenReturn("You have provided wrong password");

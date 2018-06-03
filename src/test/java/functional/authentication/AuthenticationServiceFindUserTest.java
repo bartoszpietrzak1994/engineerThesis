@@ -21,7 +21,7 @@ public class AuthenticationServiceFindUserTest extends BaseFunctionalTest
         // THEN
         assertThat(userByUsername).isNotNull();
         assertThat(userByUsername.getPassword()).isNotEmpty();
-        assertThat(userByUsername.getUserName()).isEqualToIgnoringCase(USERNAME);
+        assertThat(userByUsername.getUsername()).isEqualToIgnoringCase(USERNAME);
     }
 
     @Test

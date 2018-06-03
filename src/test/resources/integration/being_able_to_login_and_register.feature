@@ -12,6 +12,7 @@ Scenario: I am able to register
   Then new user Tomek should be created
 
 Scenario: I am able to login
+  Given the user Tomek is already registered
   When I type Tomek as user name and password as password
   And I click Login button
   Then I should visit the main application window
@@ -20,4 +21,4 @@ Scenario: I am not able to register using existing user name
   Given the user Tomek is already registered
   When I type Tomek as user name and password as password
   And I click Register button
-  Then I should see an error message
+  Then I should be notified that user Tomek already exists

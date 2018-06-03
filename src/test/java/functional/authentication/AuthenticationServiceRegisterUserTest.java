@@ -26,7 +26,7 @@ public class AuthenticationServiceRegisterUserTest extends BaseFunctionalTest
 
         User userByUsername = authenticationService.findUserByUsername(USERNAME);
         assertThat(userByUsername).isNotNull();
-        assertThat(userByUsername.getUserName()).isEqualTo(USERNAME);
+        assertThat(userByUsername.getUsername()).isEqualTo(USERNAME);
     }
 
     @Test

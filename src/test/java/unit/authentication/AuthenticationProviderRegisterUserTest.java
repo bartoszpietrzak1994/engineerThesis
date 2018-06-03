@@ -25,7 +25,7 @@ public class AuthenticationProviderRegisterUserTest extends BaseAuthenticationPr
         // GIVEN
         Mockito.when(requestValidator.validate(any(RegisterUserRequest.class))).thenReturn(new HashSet<>());
         Mockito.when(bCryptPasswordEncoder.encode(any(String.class))).thenReturn(RandomStringUtils.randomAlphanumeric(5));
-        Mockito.when(userRepository.findOneByUserName(any(String.class))).thenReturn(null);
+        Mockito.when(userRepository.findOneByUsername(any(String.class))).thenReturn(null);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric(5)),
                 USERNAME, PASSWORD));
 
@@ -65,7 +65,7 @@ public class AuthenticationProviderRegisterUserTest extends BaseAuthenticationPr
         // GIVEN
         Mockito.when(requestValidator.validate(any(RegisterUserRequest.class))).thenReturn(new HashSet<>());
         Mockito.when(bCryptPasswordEncoder.encode(any(String.class))).thenReturn(RandomStringUtils.randomAlphanumeric(5));
-        Mockito.when(userRepository.findOneByUserName(any(String.class))).thenReturn(null);
+        Mockito.when(userRepository.findOneByUsername(any(String.class))).thenReturn(null);
         Mockito.when(userRepository.save(any(User.class))).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric(5)),
                 USERNAME, PASSWORD));
 
@@ -84,7 +84,7 @@ public class AuthenticationProviderRegisterUserTest extends BaseAuthenticationPr
         // GIVEN
         Mockito.when(requestValidator.validate(any(RegisterUserRequest.class))).thenReturn(new HashSet<>());
         Mockito.when(bCryptPasswordEncoder.encode(any(String.class))).thenReturn(RandomStringUtils.randomAlphanumeric(5));
-        Mockito.when(userRepository.findOneByUserName(any(String.class))).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric(5)),
+        Mockito.when(userRepository.findOneByUsername(any(String.class))).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric(5)),
                 USERNAME, PASSWORD));
 
         RegisterUserRequest registerUserRequest = new RegisterUserRequest(USERNAME, PASSWORD);
@@ -105,7 +105,7 @@ public class AuthenticationProviderRegisterUserTest extends BaseAuthenticationPr
         // GIVEN
         Mockito.when(requestValidator.validate(any(RegisterUserRequest.class))).thenReturn(new HashSet<>());
         Mockito.when(bCryptPasswordEncoder.encode(any(String.class))).thenReturn(RandomStringUtils.randomAlphanumeric(5));
-        Mockito.when(userRepository.findOneByUserName(any(String.class))).thenReturn(null);
+        Mockito.when(userRepository.findOneByUsername(any(String.class))).thenReturn(null);
         Mockito.when(userRepository.save(any(User.class))).thenThrow(new RuntimeException());
         Mockito.when(environment.getProperty("user.unexpected_error")).thenReturn("An unexpected error occurred");
 

@@ -10,29 +10,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.testfx.framework.junit.ApplicationTest;
 import repository.UserRepository;
-import testfx.MainApplicationTest;
+import testfx.MainWindowTest;
 
-@Component
+import static org.assertj.core.api.Java6Assertions.assertThat;
+
 final public class MainWindowSteps extends ApplicationTest
 {
     @Autowired
     private UserRepository userRepository;
 
-    private MainApplicationTest mainApplicationTest;
+    private MainWindowTest mainWindowTest;
 
     @Before
     public void setUp() throws Exception
     {
         userRepository.deleteAll();
         userRepository.flush();
-        this.mainApplicationTest = new MainApplicationTest();
-        this.mainApplicationTest.setUp();
+        this.mainWindowTest = new MainWindowTest();
     }
 
     @After
     public void tearDown() throws Exception
     {
-        this.mainApplicationTest.tearDown();
+        this.mainWindowTest.tearDown();
     }
 
     /**
@@ -41,25 +41,25 @@ final public class MainWindowSteps extends ApplicationTest
     @When("^I click Add Album button$")
     public void i_click_Add_Album_button() throws Exception
     {
-        this.mainApplicationTest.clickAddAlbumButton();
+        this.mainWindowTest.clickAddAlbumButton();
     }
 
     @When("^I click Rate button$")
     public void i_click_Rate_button() throws Exception
     {
-        this.mainApplicationTest.clickRateButton();
+        this.mainWindowTest.clickRateButton();
     }
 
     @When("^I click Get Recommendations button$")
     public void i_click_Get_Recommendations_button() throws Exception
     {
-        this.mainApplicationTest.clickGetRecommendationsButton();
+        this.mainWindowTest.clickGetRecommendationsButton();
     }
 
     @When("^I click Details button$")
     public void i_click_Details_button() throws Exception
     {
-        this.mainApplicationTest.clickDetailsButton();
+        this.mainWindowTest.clickDetailsButton();
     }
 
     /**
@@ -69,25 +69,25 @@ final public class MainWindowSteps extends ApplicationTest
     @Then("^I should visit the main application window$")
     public void i_visit_the_main_application_window() throws Exception
     {
-        throw new PendingException();
+        assertThat(this.mainWindowTest.isMainApplicationWindowCurrentWindow()).isTrue();
     }
 
     @Then("^the Add Album window should appear$")
     public void the_Add_Album_window_should_appear() throws Exception
     {
-        this.mainApplicationTest.addAlbumWindowShouldAppear();
+        this.mainWindowTest.addAlbumWindowShouldAppear();
     }
 
     @Then("^I the Rate Album window should appear$")
     public void i_the_Rate_Album_window_should_appear() throws Exception
     {
-        this.mainApplicationTest.rateAlbumWindowShouldAppear();
+        this.mainWindowTest.rateAlbumWindowShouldAppear();
     }
 
     @Then("^I the Album Details window should appear$")
     public void i_the_Album_Details_window_should_appear() throws Exception
     {
-        this.mainApplicationTest.albumDetailsWindowShouldAppear();
+        this.mainWindowTest.albumDetailsWindowShouldAppear();
     }
 
     /**

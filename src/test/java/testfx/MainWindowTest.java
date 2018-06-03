@@ -8,13 +8,15 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.service.query.NodeQuery;
 
 import java.io.IOException;
 
-public class MainApplicationTest extends ApplicationTest
+public class MainWindowTest extends ApplicationTest
 {
     private static final String RELATIVE_CONTROLLER_PATH = "../ui/mainWindow.fxml";
 
@@ -92,5 +94,10 @@ public class MainApplicationTest extends ApplicationTest
     public void addAlbumWindowShouldAppear()
     {
         return;
+    }
+
+    public boolean isMainApplicationWindowCurrentWindow()
+    {
+        return lookup("#userAlbums").query() != null;
     }
 }

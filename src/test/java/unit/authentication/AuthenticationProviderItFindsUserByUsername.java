@@ -12,7 +12,7 @@ public class AuthenticationProviderItFindsUserByUsername extends BaseAuthenticat
     public void itReturnsUserEntity()
     {
         // GIVEN
-        Mockito.when(userRepository.findOneByUserName(USERNAME)).thenReturn(new User());
+        Mockito.when(userRepository.findOneByUsername(USERNAME)).thenReturn(new User());
 
         // WHEN
         User userByUsername = authenticationProvider.findUserByUsername(USERNAME);
@@ -20,7 +20,7 @@ public class AuthenticationProviderItFindsUserByUsername extends BaseAuthenticat
         // THEN
         assertThat(userByUsername).isInstanceOf(User.class);
         assertThat(userByUsername).hasFieldOrProperty("userId");
-        assertThat(userByUsername).hasFieldOrProperty("userName");
+        assertThat(userByUsername).hasFieldOrProperty("username");
         assertThat(userByUsername).hasFieldOrProperty("password");
     }
 }
