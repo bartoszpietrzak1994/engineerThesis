@@ -7,9 +7,9 @@ Background:
   Given the user Tomek is already registered
   And I am at login and register window
   And I type Tomek as user name and password as password
+  And a random album is added to collection
   And I click Login button
   And I visit the main application window
-  And a random album is added to collection
 
 Scenario: I am able to see my album collection
   When I visit the main application window
@@ -30,6 +30,6 @@ Scenario: I am able to receive music recommendations based on albums from my col
   Then I should receive the list of albums related to these from my collection
 
 Scenario: I am able to see details of an album from my collection
-  When I select an album from my collection
+  When I choose the first album from my collection
   And I click Details button
-  Then I the Album Details window should appear
+  Then the Album Details window should appear

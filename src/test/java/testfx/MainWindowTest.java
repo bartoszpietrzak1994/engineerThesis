@@ -1,6 +1,5 @@
 package testfx;
 
-import com.google.common.collect.Iterables;
 import config.MainApplicationConfiguration;
 import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
@@ -15,8 +14,6 @@ import javafx.stage.Window;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
-import org.testfx.matcher.control.ListViewMatchers;
-import org.testfx.service.query.NodeQuery;
 import sun.plugin.dom.exception.InvalidStateException;
 
 import java.io.IOException;
@@ -97,7 +94,17 @@ public class MainWindowTest extends ApplicationTest
 
     public void albumDetailsWindowShouldAppear()
     {
-        return;
+        List<Window> windows = listWindows();
+
+        for (Window window : windows)
+        {
+            if (window.getScene().lookup("#rating") != null)
+            {
+                return;
+            }
+        }
+
+        throw new InvalidStateException("Album details window did not appear");
     }
 
     public void addAlbumWindowShouldAppear()
@@ -132,12 +139,14 @@ public class MainWindowTest extends ApplicationTest
             throw new IllegalStateException("Album ratings combo box not found");
         }
 
-        clickOn("albumRatings");
+        clickOn("#albumRatings");
 
         for (String rating : ratings.getItems())
         {
             if (rating.equals(ratingOption))
             {
+                type(KeyCode.DOWN);
+
                 type(KeyCode.ENTER);
                 return;
             }
@@ -149,6 +158,32 @@ public class MainWindowTest extends ApplicationTest
     }
 
     public void albumShouldBeRatedWith(String ratingOption)
+    {
+        ListView<String> albums = getUserAlbums();
+
+        List<String> ratedAlbums = albums.getItems().stream().filter(item -> item.contains(ratingOption)).collect
+                (Collectors.toList());
+
+        assertThat(ratedAlbums).hasSize(1);
+    }
+
+    public void selectFirstAlbum()
+    {
+        ListView<String> albums = getUserAlbums();
+        albums.getSelectionModel().select(0);
+    }
+
+    public boolean isMainApplicationWindowCurrentWindow()
+    {
+        return lookup("#userAlbums").query() != null;
+    }
+
+    public boolean albumCollectionIsVisible()
+    {
+        return lookup("#userAlbums").query() != null;
+    }
+
+    private ListView<String> getUserAlbums()
     {
         ListView<String> albums = null;
 
@@ -165,19 +200,6 @@ public class MainWindowTest extends ApplicationTest
             throw new IllegalStateException("Album ratings combo box not found");
         }
 
-        List<String> ratedAlbums = albums.getItems().stream().filter(item -> item.contains(ratingOption)).collect
-                (Collectors.toList());
-
-        assertThat(ratedAlbums).hasSize(1);
-    }
-
-    public boolean isMainApplicationWindowCurrentWindow()
-    {
-        return lookup("#userAlbums").query() != null;
-    }
-
-    public boolean albumCollectionIsVisible()
-    {
-        return lookup("#userAlbums").query() != null;
+        return albums;
     }
 }

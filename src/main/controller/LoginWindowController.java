@@ -104,13 +104,13 @@ final public class LoginWindowController implements Initializable
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_MAIN_CONTROLLER_PATH));
         fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
         Parent root = fxmlLoader.load();
+        MainWindowController mainWindowController = fxmlLoader.getController();
+        mainWindowController.setUserName(userName);
+        mainWindowController.loadUserAlbums();
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);
         stage.setTitle("My music collection");
-        MainWindowController controller = fxmlLoader.getController();
-        controller.setUserName(userName);
-        controller.loadUserAlbums();
         stage.setScene(new Scene(root));
         stage.show();
 

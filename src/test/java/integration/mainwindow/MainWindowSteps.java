@@ -1,37 +1,44 @@
 package integration.mainwindow;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import integration.SpringIntegrationTest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.testfx.framework.junit.ApplicationTest;
+import repository.AlbumRepository;
 import repository.UserRepository;
 import testfx.MainWindowTest;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;
 
-final public class MainWindowSteps extends ApplicationTest
+final public class MainWindowSteps extends SpringIntegrationTest
 {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AlbumRepository albumRepository;
+
     private MainWindowTest mainWindowTest;
 
     @Before
-    public void setUp() throws Exception
+    public void beforeAll()
     {
+        albumRepository.deleteAll();
+        albumRepository.flush();
+
         userRepository.deleteAll();
         userRepository.flush();
+
         this.mainWindowTest = new MainWindowTest();
     }
 
     @After
     public void tearDown() throws Exception
     {
-        this.mainWindowTest.tearDown();
+//        this.mainWindowTest.tearDown();
     }
 
     /**
@@ -95,8 +102,8 @@ final public class MainWindowSteps extends ApplicationTest
         this.mainWindowTest.rateAlbumWindowShouldAppear();
     }
 
-    @Then("^I the Album Details window should appear$")
-    public void i_the_Album_Details_window_should_appear() throws Exception
+    @Then("^the Album Details window should appear$")
+    public void the_Album_Details_window_should_appear() throws Exception
     {
         this.mainWindowTest.albumDetailsWindowShouldAppear();
     }
@@ -107,19 +114,13 @@ final public class MainWindowSteps extends ApplicationTest
     @When("^I choose the first album from my collection$")
     public void i_choose_the_first_album_from_my_collection() throws Exception
     {
-        throw new PendingException();
+        this.mainWindowTest.selectFirstAlbum();
     }
 
     @Then("^I should receive the list of albums related to these from my collection$")
     public void i_should_receive_the_list_of_albums_related_to_these_from_my_collection() throws Exception
     {
-        throw new PendingException();
-    }
-
-    @When("^I select an album from my collection$")
-    public void i_select_an_album_from_my_collection() throws Exception
-    {
-        throw new PendingException();
+        return;
     }
 
     @Then("^I should be able to see my album collection$")

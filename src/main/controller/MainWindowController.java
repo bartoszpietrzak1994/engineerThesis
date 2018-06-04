@@ -40,11 +40,13 @@ import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @Component
-final public class MainWindowController implements Initializable
+final public class MainWindowController
 {
     private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "../ui/loginWindow.fxml";
     private static final String RELATIVE_ADD_ALBUM_CONTROLLER_PATH = "../ui/addAlbumWindow.fxml";
     private static final String RELATIVE_ALBUM_DETAILS_CONTROLLER_PATH = "../ui/albumDetailsWindow.fxml";
+
+    private String username;
 
     @Autowired
     private AlbumService albumService;
@@ -59,7 +61,7 @@ final public class MainWindowController implements Initializable
     private ComboBox<String> albumRatings;
 
     @FXML
-    private TextField userName;
+    private TextField usernameTextField;
 
     @FXML
     private Button addAlbum;
@@ -68,7 +70,7 @@ final public class MainWindowController implements Initializable
     private Button rate;
 
     @FXML
-    private Button details;
+    private Button albumDetails;
 
     @FXML
     private Button getRecommendations;
@@ -88,8 +90,8 @@ final public class MainWindowController implements Initializable
     @FXML
     private Label message;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources)
+    @FXML
+    public void initialize()
     {
         List<String> stringAlbumSortingCriterias = Arrays.stream(AlbumOrderingCriteria.values()).map(Enum::toString)
                 .collect(Collectors.toList());
@@ -112,7 +114,7 @@ final public class MainWindowController implements Initializable
         fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         AddAlbumWindowController addAlbumWindowController = fxmlLoader.getController();
-        addAlbumWindowController.setUserName(this.userName.getText());
+        addAlbumWindowController.setUserName(this.username);
         addAlbumWindowController.setMainWindowController(this);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
@@ -165,7 +167,7 @@ final public class MainWindowController implements Initializable
 
         if (StringUtils.isEmpty(selectedAlbum))
         {
-            message.setText("In order to see details of an album you have to choose an album");
+            message.setText("In order to see albumDetails of an album you have to choose an album");
             return;
         }
 
@@ -233,13 +235,15 @@ final public class MainWindowController implements Initializable
 
     public void setUserName(String userName)
     {
-        this.userName.setText(userName);
+        this.username = userName;
     }
 
     public void loadUserAlbums()
     {
+        this.usernameTextField.setText(this.username);
+
         FindAllUserAlbumRequest findAllUserAlbumRequest = new FindAllUserAlbumRequest();
-        findAllUserAlbumRequest.setUserName(this.userName.getText());
+        findAllUserAlbumRequest.setUserName(this.usernameTextField.getText());
 
         FindAllUserAlbumsResponse allAlbumsAddedByUser = this.albumService.findAllAlbumsAddedByUser
                 (findAllUserAlbumRequest);
@@ -252,7 +256,6 @@ final public class MainWindowController implements Initializable
 
         List<AlbumDto> albumList = allAlbumsAddedByUser.getAlbumList();
         List<String> albumsAsString = albumList.stream().map(AlbumDto::toString).collect(Collectors.toList());
-
 
         ObservableList<String> userAlbumItems = userAlbums.getItems();
 

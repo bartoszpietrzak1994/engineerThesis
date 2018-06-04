@@ -1,13 +1,14 @@
 package integration.login;
 
 import cucumber.api.java.en.Given;
+import integration.SpringIntegrationTest;
 import model.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import repository.UserRepository;
 import testfx.LoginWindowTest;
 
-final public class LoginSetupSteps
+final public class LoginSetupSteps extends SpringIntegrationTest
 {
     @Autowired
     private UserRepository userRepository;

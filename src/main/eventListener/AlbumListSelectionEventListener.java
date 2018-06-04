@@ -26,11 +26,15 @@ public class AlbumListSelectionEventListener implements ChangeListener<String>
     @Override
     public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue)
     {
+        if (newValue == null)
+        {
+            return;
+        }
+
         GetAlbumCoverRequest getAlbumCoverRequest = new GetAlbumCoverRequest();
         getAlbumCoverRequest.setAlbumId(AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(newValue));
         GetAlbumCoverResponse response = albumService.getAlbumCover(getAlbumCoverRequest);
 
-        albumCoverPreview.setImage(null);
         if (!response.isSuccessful())
         {
             return;

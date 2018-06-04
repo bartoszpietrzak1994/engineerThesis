@@ -52,3 +52,4 @@ final public class MainWindowSetupSteps extends SpringIntegrationTest
         albumRepository.save(album);
     }
 }
+

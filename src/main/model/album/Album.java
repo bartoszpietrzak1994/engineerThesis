@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import model.user.User;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -41,5 +43,6 @@ final public class Album
 
     @ManyToOne(targetEntity = User.class, optional = false)
     @JoinColumn(name = "user_id")
-    private User user;
+    @NotFound(action = NotFoundAction.IGNORE)
+    private User user = null;
 }
