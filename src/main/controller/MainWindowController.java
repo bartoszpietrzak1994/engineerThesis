@@ -16,6 +16,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import model.album.Album;
 import model.album.AlbumOrderingCriteria;
 import model.album.AlbumRating;
 import org.apache.commons.lang3.StringUtils;
@@ -24,16 +25,21 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import request.album.FindAllUserAlbumRequest;
+import request.album.GetAlbumByIdRequest;
 import request.album.GetAlbumsOrderedByCriteriaRequest;
 import request.album.RateAlbumRequest;
+import request.recommendation.GetRecommendationsRequest;
 import response.GenericResponse;
 import response.album.FindAllUserAlbumsResponse;
 import response.album.GetAlbumsOrderedByCriteriaResponse;
+import response.recommendation.GetRecommendationsResponse;
 import service.AlbumService;
+import service.RecommendationsService;
 import util.album.AlbumPropertiesUtils;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -45,11 +51,15 @@ final public class MainWindowController
     private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "../ui/loginWindow.fxml";
     private static final String RELATIVE_ADD_ALBUM_CONTROLLER_PATH = "../ui/addAlbumWindow.fxml";
     private static final String RELATIVE_ALBUM_DETAILS_CONTROLLER_PATH = "../ui/albumDetailsWindow.fxml";
+    private static final String RELATIVE_RECOMMENDATIONS_CONTROLLER_PATH = "../ui/recommendationsWindow.fxml";
 
     private String username;
 
     @Autowired
     private AlbumService albumService;
+
+    @Autowired
+    private RecommendationsService recommendationsService;
 
     @Autowired
     private Environment environment;
@@ -188,9 +198,43 @@ final public class MainWindowController
     }
 
     @FXML
-    public void onGetRecommendationsButtonClicked()
+    public void onGetRecommendationsButtonClicked() throws IOException
     {
-        this.message.setText(environment.getProperty("user.get_recommendations_not_available"));
+        this.message.setText("");
+
+        GetRecommendationsRequest getRecommendationsRequest = new GetRecommendationsRequest();
+
+        List<AlbumDto> albums = new ArrayList<>();
+
+        for (String albumAsString : userAlbums.getItems())
+        {
+            String albumId = AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(albumAsString);
+            albums.add(albumService.getAlbumById(new GetAlbumByIdRequest(albumId)).getAlbum());
+        }
+
+        getRecommendationsRequest.setUserAlbums(albums);
+
+        GetRecommendationsResponse recommendations = this.recommendationsService.getRecommendations
+                (getRecommendationsRequest);
+
+        if (!recommendations.isSuccessful())
+        {
+            this.message.setText(recommendations.getErrorMessage());
+            return;
+        }
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_RECOMMENDATIONS_CONTROLLER_PATH));
+        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+        Parent root = fxmlLoader.load();
+        RecommendationsWindowController controller = fxmlLoader.getController();
+        controller.setRecommendedArtists(recommendations.getRecommendedArtists());
+        controller.loadRecommendations();
+        Stage stage = new Stage();
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initStyle(StageStyle.DECORATED);
+        stage.setTitle("My music collection");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
