@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-final public class AddAlbumWindowController implements Initializable
+final public class AddAlbumWindowController extends BaseController implements Initializable
 {
     @Autowired
     private AlbumService albumService;

@@ -35,7 +35,7 @@ public class AddAlbumWindowTest extends ApplicationTest
         {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MainApplicationConfiguration.class.getResource(RELATIVE_CONTROLLER_PATH));
-            fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+//            fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
             Parent root;
             try
             {
@@ -56,7 +56,7 @@ public class AddAlbumWindowTest extends ApplicationTest
 
     public void setUp() throws Exception
     {
-        start(FxToolkit.registerPrimaryStage());
+//        start(FxToolkit.registerPrimaryStage());
     }
 
     public void tearDown() throws Exception

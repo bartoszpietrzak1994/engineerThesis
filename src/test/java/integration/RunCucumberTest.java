@@ -1,7 +1,7 @@
 package integration;
 
-import config.MainApplicationConfiguration;
 import config.PersistenceConfiguration;
+import config.TestApplicationConfiguration;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.Rule;
@@ -14,5 +14,5 @@ final public class RunCucumberTest
 {
     @Rule
     private AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext
-            (MainApplicationConfiguration.class, PersistenceConfiguration.class);
+            (TestApplicationConfiguration.class, PersistenceConfiguration.class);
 }

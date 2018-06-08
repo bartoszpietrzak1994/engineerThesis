@@ -7,7 +7,6 @@ import request.recommendation.GetRecommendationsRequest;
 import response.recommendation.GetRecommendationsResponse;
 import service.RecommendationsService;
 
-@Component
 final public class RecommendationsServiceImpl implements RecommendationsService
 {
     @Autowired

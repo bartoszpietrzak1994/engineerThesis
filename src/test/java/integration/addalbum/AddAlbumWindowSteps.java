@@ -1,8 +1,6 @@
 package integration.addalbum;
 
-import cucumber.api.PendingException;
 import cucumber.api.java.Before;
-import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import integration.SpringIntegrationTest;
@@ -40,13 +38,13 @@ public class AddAlbumWindowSteps extends SpringIntegrationTest
         this.addAlbumWindowTest.fillArtistField(artist);
     }
 
-    @When("^I fill title field with (\\w+)$")
+    @When("^I fill title field with (\\w+)")
     public void iFillTitleFieldWith(String title)
     {
         this.addAlbumWindowTest.fillTitleField(title);
     }
 
-    @When("^I fill release date field with (\\w+)$")
+    @When("^I fill release date field with (\\w+)")
     public void iFillReleaseDateFieldWith(String releaseDate)
     {
         this.addAlbumWindowTest.fillReleaseDate(releaseDate);

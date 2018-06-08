@@ -1,14 +1,12 @@
 package controller;
 
 import com.google.common.collect.Iterables;
-import config.MainApplicationConfiguration;
 import dto.album.AlbumDto;
 import eventListener.AlbumListSelectionEventListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -16,7 +14,6 @@ import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import model.album.Album;
 import model.album.AlbumOrderingCriteria;
 import model.album.AlbumRating;
 import org.apache.commons.lang3.StringUtils;
@@ -38,15 +35,13 @@ import service.RecommendationsService;
 import util.album.AlbumPropertiesUtils;
 
 import java.io.IOException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
 @Component
-final public class MainWindowController
+final public class MainWindowController extends BaseController
 {
     private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "../ui/loginWindow.fxml";
     private static final String RELATIVE_ADD_ALBUM_CONTROLLER_PATH = "../ui/addAlbumWindow.fxml";
@@ -121,7 +116,7 @@ final public class MainWindowController
     public void onAddAlbumButtonClicked() throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_ADD_ALBUM_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+        fxmlLoader.setControllerFactory(this.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         AddAlbumWindowController addAlbumWindowController = fxmlLoader.getController();
         addAlbumWindowController.setUserName(this.username);
@@ -184,7 +179,7 @@ final public class MainWindowController
         String albumId = AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(selectedAlbum);
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_ALBUM_DETAILS_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+        fxmlLoader.setControllerFactory(this.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         AlbumDetailsController albumDetailsController = fxmlLoader.getController();
         albumDetailsController.setAlbumId(albumId);
@@ -224,7 +219,7 @@ final public class MainWindowController
         }
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_RECOMMENDATIONS_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+        fxmlLoader.setControllerFactory(this.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         RecommendationsWindowController controller = fxmlLoader.getController();
         controller.setRecommendedArtists(recommendations.getRecommendedArtists());
@@ -264,7 +259,7 @@ final public class MainWindowController
     public void onLogoutButtonClicked() throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_LOGIN_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+        fxmlLoader.setControllerFactory(this.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);

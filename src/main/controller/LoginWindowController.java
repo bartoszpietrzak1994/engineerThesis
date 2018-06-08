@@ -27,7 +27,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-final public class LoginWindowController implements Initializable
+final public class LoginWindowController extends BaseController implements Initializable
 {
     private static final String RELATIVE_MAIN_CONTROLLER_PATH = "../ui/mainWindow.fxml";
 
@@ -102,7 +102,7 @@ final public class LoginWindowController implements Initializable
     private void openMainApplicationWindow(String userName) throws IOException
     {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RELATIVE_MAIN_CONTROLLER_PATH));
-        fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
+        fxmlLoader.setControllerFactory(this.applicationContext::getBean);
         Parent root = fxmlLoader.load();
         MainWindowController mainWindowController = fxmlLoader.getController();
         mainWindowController.setUserName(userName);

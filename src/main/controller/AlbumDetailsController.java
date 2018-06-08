@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 @Component
-final public class AlbumDetailsController implements Initializable
+final public class AlbumDetailsController extends BaseController implements Initializable
 {
     @Autowired
     private AlbumService albumService;
