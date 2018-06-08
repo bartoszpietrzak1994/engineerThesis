@@ -5,11 +5,11 @@ import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
@@ -46,13 +46,8 @@ public class AlbumRecommendationsWindowTest extends ApplicationTest
         this.jfxPanel = new JFXPanel();
     }
 
-    public boolean isRecommendationsWindowVisible()
-    {
-        return false;
-    }
-
     public boolean thereAreRecommendations(int count)
     {
-        return false;
+        return ((ListView)GuiTest.find("#recommendations")).getItems().size() == count;
     }
 }

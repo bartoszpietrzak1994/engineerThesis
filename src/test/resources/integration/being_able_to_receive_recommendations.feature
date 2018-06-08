@@ -12,5 +12,4 @@ Background:
 
 Scenario: I am able to receive list of similar artists
   When I click Get Recommendations button
-  Then I should see recommendations window
-  And there should be 5 recommendations
+  And there should see 5 recommendations

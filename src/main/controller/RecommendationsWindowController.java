@@ -1,6 +1,5 @@
 package controller;
 
-import config.MainApplicationConfiguration;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -11,6 +10,7 @@ import javafx.scene.control.ListView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import java.io.IOException;
@@ -18,6 +18,7 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+@Component
 public class RecommendationsWindowController extends BaseController implements Initializable
 {
     private static final String RELATIVE_MAIN_WINDOW_CONTROLLER_PATH = "../ui/mainWindow.fxml";

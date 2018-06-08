@@ -28,16 +28,6 @@ final public class MainWindowSetupSteps extends SpringIntegrationTest
 
     private LoginWindowTest loginWindowTest;
 
-    @Given("^An user (\\w+) exists$")
-    public void user_exists(String username)
-    {
-        User user = new User();
-        user.setUsername(username);
-        user.setPassword(bCryptPasswordEncoder.encode("password"));
-        userRepository.save(user);
-        userRepository.flush();
-    }
-
     @Given("^a random album is added to collection$")
     public void a_random_album_is_added_to_collection()
     {

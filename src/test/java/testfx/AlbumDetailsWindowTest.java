@@ -5,11 +5,11 @@ import javafx.embed.swing.JFXPanel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxRobot;
-import org.testfx.api.FxToolkit;
 import org.testfx.framework.junit.ApplicationTest;
 
 import java.io.IOException;
@@ -44,5 +44,20 @@ public class AlbumDetailsWindowTest extends ApplicationTest
         });
 
         this.jfxPanel = new JFXPanel();
+    }
+
+    public boolean isArtistFieldFilledWith(String artist)
+    {
+        return ((TextField)GuiTest.find("#artist")).getText().equals(artist);
+    }
+
+    public boolean isTitleFieldFilledWith(String title)
+    {
+        return ((TextField)GuiTest.find("#title")).getText().equals(title);
+    }
+
+    public boolean isReleaseDateFieldFilledWith(String releaseDate)
+    {
+        return ((DatePicker)GuiTest.find("#releaseDate")).getValue().toString().equals(releaseDate);
     }
 }

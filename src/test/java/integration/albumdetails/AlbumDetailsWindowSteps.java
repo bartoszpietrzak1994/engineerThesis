@@ -1,11 +1,11 @@
 package integration.albumdetails;
 
-import cucumber.api.PendingException;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
 import integration.SpringIntegrationTest;
-import org.junit.Before;
 import testfx.AlbumDetailsWindowTest;
+
+import static org.assertj.core.api.Java6Assertions.assertThat;
 
 public class AlbumDetailsWindowSteps extends SpringIntegrationTest
 {
@@ -17,31 +17,21 @@ public class AlbumDetailsWindowSteps extends SpringIntegrationTest
         this.albumDetailsWindowTest = new AlbumDetailsWindowTest();
     }
 
-    @Then("^I should visit album details window$")
-    public void iShouldVisitAlbumDetailsWindow()
-    {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
-    }
-
     @And("^artist field should be filled with (.*)$")
     public void artistFieldShouldBeFilledWith(String artist)
     {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertThat(this.albumDetailsWindowTest.isArtistFieldFilledWith(artist)).isTrue();
     }
 
     @And("^title field should be filled with (.*)$")
     public void titleFieldShouldBeFilledWith(String title)
     {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertThat(this.albumDetailsWindowTest.isTitleFieldFilledWith(title)).isTrue();
     }
 
     @And("^release date field should be filled with (.*)$")
     public void releaseDateFieldShouldBeFilledWith(String releaseDate)
     {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+        assertThat(this.albumDetailsWindowTest.isReleaseDateFieldFilledWith(releaseDate)).isTrue();
     }
 }
