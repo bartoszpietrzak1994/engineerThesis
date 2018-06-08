@@ -18,31 +18,29 @@ public class AlbumDetailsWindowSteps extends SpringIntegrationTest
         this.albumDetailsWindowTest.setUp();
     }
 
-
-
     @Then("^I should visit album details window$")
-    public void iShouldVisitAlbumDetailsWindow() throws Throwable
+    public void iShouldVisitAlbumDetailsWindow()
     {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
-    @And("^artist field should be filled with AC/DC$")
-    public void artistFieldShouldBeFilledWithACDC() throws Throwable
+    @And("^artist field should be filled with (.*)$")
+    public void artistFieldShouldBeFilledWith(String artist)
     {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
-    @And("^title field should be filled with Random$")
-    public void titleFieldShouldBeFilledWithRandom() throws Throwable
+    @And("^title field should be filled with (.*)$")
+    public void titleFieldShouldBeFilledWith(String title)
     {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();
     }
 
-    @And("^release date field should be filled with (\\d+)-(\\d+)-(\\d+)$")
-    public void releaseDateFieldShouldBeFilledWith(int arg0, int arg1, int arg2) throws Throwable
+    @And("^release date field should be filled with (.*)$")
+    public void releaseDateFieldShouldBeFilledWith(String releaseDate)
     {
         // Write code here that turns the phrase above into concrete actions
         throw new PendingException();

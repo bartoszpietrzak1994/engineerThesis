@@ -24,9 +24,9 @@ Scenario: I am not able to add new album with no title
   And I should see an error message
 
 Scenario: I am not able to add new album with no artist
-    When I fill title field with Random album
-    And I fill release date field with 2018-06-05
-    And I click Add button
-    Then new album should not be added
-    And I should see an error message
+  When I fill title field with Random album
+  And I fill release date field with 2018-06-05
+  And I click Add button
+  Then new album should not be added
+  And I should see an error message
 

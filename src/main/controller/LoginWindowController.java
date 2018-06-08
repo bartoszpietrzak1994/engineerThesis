@@ -107,6 +107,7 @@ final public class LoginWindowController extends BaseController implements Initi
         MainWindowController mainWindowController = fxmlLoader.getController();
         mainWindowController.setUserName(userName);
         mainWindowController.loadUserAlbums();
+        mainWindowController.setApplicationContext(this.applicationContext);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);

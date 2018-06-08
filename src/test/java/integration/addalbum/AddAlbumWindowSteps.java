@@ -21,7 +21,6 @@ public class AddAlbumWindowSteps extends SpringIntegrationTest
     public void setUp() throws Exception
     {
         this.addAlbumWindowTest = new AddAlbumWindowTest();
-        this.addAlbumWindowTest.setUp();
     }
 
     @When("^I fill album details with valid random data$")
@@ -32,19 +31,19 @@ public class AddAlbumWindowSteps extends SpringIntegrationTest
         this.addAlbumWindowTest.fillReleaseDate();
     }
 
-    @When("^I fill artist field with (\\w+)$")
+    @When("^I fill artist field with (.*)$")
     public void iFillArtistFieldWith(String artist)
     {
         this.addAlbumWindowTest.fillArtistField(artist);
     }
 
-    @When("^I fill title field with (\\w+)")
+    @When("^I fill title field with (.*)")
     public void iFillTitleFieldWith(String title)
     {
         this.addAlbumWindowTest.fillTitleField(title);
     }
 
-    @When("^I fill release date field with (\\w+)")
+    @When("^I fill release date field with (.*)")
     public void iFillReleaseDateFieldWith(String releaseDate)
     {
         this.addAlbumWindowTest.fillReleaseDate(releaseDate);

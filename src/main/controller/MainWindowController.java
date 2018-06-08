@@ -121,6 +121,7 @@ final public class MainWindowController extends BaseController
         AddAlbumWindowController addAlbumWindowController = fxmlLoader.getController();
         addAlbumWindowController.setUserName(this.username);
         addAlbumWindowController.setMainWindowController(this);
+        addAlbumWindowController.setApplicationContext(this.applicationContext);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);
@@ -184,6 +185,7 @@ final public class MainWindowController extends BaseController
         AlbumDetailsController albumDetailsController = fxmlLoader.getController();
         albumDetailsController.setAlbumId(albumId);
         albumDetailsController.fetchAlbumData();
+        albumDetailsController.setApplicationContext(this.applicationContext);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);
@@ -224,6 +226,7 @@ final public class MainWindowController extends BaseController
         RecommendationsWindowController controller = fxmlLoader.getController();
         controller.setRecommendedArtists(recommendations.getRecommendedArtists());
         controller.loadRecommendations();
+        controller.setApplicationContext(this.applicationContext);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initStyle(StageStyle.DECORATED);
