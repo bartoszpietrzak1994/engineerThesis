@@ -29,20 +29,20 @@ final public class LoginWindowSteps extends SpringIntegrationTest
     }
 
     @When("^I type (\\w+) as user name and (\\w+) as password$")
-    public void i_type_user_name_and_password(String userName, String password) throws Exception
+    public void i_type_user_name_and_password(String userName, String password)
     {
         loginWindowTest.fillLoginFieldWithLogin(userName);
         loginWindowTest.fillPasswordFieldWithPassword(password);
     }
 
     @When("^I click Register button$")
-    public void i_click_Register_button() throws Exception
+    public void i_click_Register_button()
     {
         loginWindowTest.clickRegisterButton();
     }
 
     @When("^I click Login button$")
-    public void i_click_Login_button() throws Exception
+    public void i_click_Login_button()
     {
         loginWindowTest.clickLoginButton();
     }

@@ -12,10 +12,9 @@ public class AlbumDetailsWindowSteps extends SpringIntegrationTest
     private AlbumDetailsWindowTest albumDetailsWindowTest;
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
         this.albumDetailsWindowTest = new AlbumDetailsWindowTest();
-        this.albumDetailsWindowTest.setUp();
     }
 
     @Then("^I should visit album details window$")

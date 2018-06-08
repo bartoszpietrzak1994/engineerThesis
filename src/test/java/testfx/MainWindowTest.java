@@ -55,18 +55,6 @@ public class MainWindowTest extends ApplicationTest
         this.jfxPanel = new JFXPanel();
     }
 
-    public void setUp() throws Exception
-    {
-//        start(FxToolkit.registerPrimaryStage());
-    }
-
-    public void tearDown() throws Exception
-    {
-        FxToolkit.hideStage();
-        release(new KeyCode[]{});
-        release(new MouseButton[]{});
-    }
-
     public void clickAddAlbumButton()
     {
         clickOn("#addAlbum");

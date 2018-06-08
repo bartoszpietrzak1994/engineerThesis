@@ -29,7 +29,7 @@ final public class MainWindowSetupSteps extends SpringIntegrationTest
     private LoginWindowTest loginWindowTest;
 
     @Given("^An user (\\w+) exists$")
-    public void user_exists(String username) throws Exception
+    public void user_exists(String username)
     {
         User user = new User();
         user.setUsername(username);
@@ -39,7 +39,7 @@ final public class MainWindowSetupSteps extends SpringIntegrationTest
     }
 
     @Given("^a random album is added to collection$")
-    public void a_random_album_is_added_to_collection() throws Exception
+    public void a_random_album_is_added_to_collection()
     {
         Album album = new Album();
         album.setReleaseDate(Date.valueOf(LocalDate.now()));

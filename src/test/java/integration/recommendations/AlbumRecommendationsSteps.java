@@ -16,17 +16,16 @@ public class AlbumRecommendationsSteps extends SpringIntegrationTest
     public void setUp() throws Exception
     {
         this.albumRecommendationsWindowTest = new AlbumRecommendationsWindowTest();
-        this.albumRecommendationsWindowTest.setUp();
     }
 
     @Then("^I should see recommendations window$")
-    public void iShouldSeeRecommendationsWindow() throws Throwable
+    public void iShouldSeeRecommendationsWindow()
     {
         assertThat(this.albumRecommendationsWindowTest.isRecommendationsWindowVisible()).isTrue();
     }
 
     @And("^there should be (\\d+) recommendations$")
-    public void thereShouldBeRecommendations(int count) throws Throwable
+    public void thereShouldBeRecommendations(int count)
     {
         assertThat(this.albumRecommendationsWindowTest.thereAreRecommendations(count)).isTrue();
     }

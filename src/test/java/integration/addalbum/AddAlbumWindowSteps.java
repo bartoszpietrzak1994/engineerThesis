@@ -18,7 +18,7 @@ public class AddAlbumWindowSteps extends SpringIntegrationTest
     private AddAlbumWindowTest addAlbumWindowTest;
 
     @Before
-    public void setUp() throws Exception
+    public void setUp()
     {
         this.addAlbumWindowTest = new AddAlbumWindowTest();
     }

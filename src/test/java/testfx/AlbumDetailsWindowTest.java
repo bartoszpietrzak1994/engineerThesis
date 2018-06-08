@@ -28,7 +28,6 @@ public class AlbumDetailsWindowTest extends ApplicationTest
         {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(MainApplicationConfiguration.class.getResource(RELATIVE_CONTROLLER_PATH));
-//            fxmlLoader.setControllerFactory(MainApplicationConfiguration.applicationContext::getBean);
             Parent root;
             try
             {
@@ -45,17 +44,5 @@ public class AlbumDetailsWindowTest extends ApplicationTest
         });
 
         this.jfxPanel = new JFXPanel();
-    }
-
-    public void setUp() throws Exception
-    {
-//        start(FxToolkit.registerPrimaryStage());
-    }
-
-    public void tearDown() throws Exception
-    {
-        FxToolkit.hideStage();
-        release(new KeyCode[]{});
-        release(new MouseButton[]{});
     }
 }

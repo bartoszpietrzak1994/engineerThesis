@@ -1,7 +1,5 @@
 package integration.mainwindow;
 
-import cucumber.api.PendingException;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -36,23 +34,17 @@ final public class MainWindowSteps extends SpringIntegrationTest
         this.mainWindowTest = new MainWindowTest();
     }
 
-    @After
-    public void tearDown() throws Exception
-    {
-//        this.mainWindowTest.tearDown();
-    }
-
     /**
      * Button steps
      */
     @When("^I click Add Album button$")
-    public void i_click_Add_Album_button() throws Exception
+    public void i_click_Add_Album_button()
     {
         this.mainWindowTest.clickAddAlbumButton();
     }
 
     @When("^I click Rate button$")
-    public void i_click_Rate_button() throws Exception
+    public void i_click_Rate_button()
     {
         this.mainWindowTest.clickRateButton();
     }
@@ -70,13 +62,13 @@ final public class MainWindowSteps extends SpringIntegrationTest
     }
 
     @When("^I click Get Recommendations button$")
-    public void i_click_Get_Recommendations_button() throws Exception
+    public void i_click_Get_Recommendations_button()
     {
         this.mainWindowTest.clickGetRecommendationsButton();
     }
 
     @When("^I click Details button$")
-    public void i_click_Details_button() throws Exception
+    public void i_click_Details_button()
     {
         this.mainWindowTest.clickDetailsButton();
     }
@@ -86,25 +78,25 @@ final public class MainWindowSteps extends SpringIntegrationTest
      */
     @Given("^I visit the main application window$")
     @Then("^I should visit the main application window$")
-    public void i_visit_the_main_application_window() throws Exception
+    public void i_visit_the_main_application_window()
     {
         assertThat(this.mainWindowTest.isMainApplicationWindowCurrentWindow()).isTrue();
     }
 
     @Then("^the Add Album window should appear$")
-    public void the_Add_Album_window_should_appear() throws Exception
+    public void the_Add_Album_window_should_appear()
     {
         this.mainWindowTest.addAlbumWindowShouldAppear();
     }
 
     @Then("^I the Rate Album window should appear$")
-    public void i_the_Rate_Album_window_should_appear() throws Exception
+    public void i_the_Rate_Album_window_should_appear()
     {
         this.mainWindowTest.rateAlbumWindowShouldAppear();
     }
 
     @Then("^the Album Details window should appear$")
-    public void the_Album_Details_window_should_appear() throws Exception
+    public void the_Album_Details_window_should_appear()
     {
         this.mainWindowTest.albumDetailsWindowShouldAppear();
     }
@@ -113,19 +105,19 @@ final public class MainWindowSteps extends SpringIntegrationTest
      * Other controls
      */
     @When("^I choose the first album from my collection$")
-    public void i_choose_the_first_album_from_my_collection() throws Exception
+    public void i_choose_the_first_album_from_my_collection()
     {
         this.mainWindowTest.selectFirstAlbum();
     }
 
     @Then("^I should receive the list of albums related to these from my collection$")
-    public void i_should_receive_the_list_of_albums_related_to_these_from_my_collection() throws Exception
+    public void i_should_receive_the_list_of_albums_related_to_these_from_my_collection()
     {
         return;
     }
 
     @Then("^I should be able to see my album collection$")
-    public void i_should_be_able_to_see_my_album_collection() throws Exception
+    public void i_should_be_able_to_see_my_album_collection()
     {
         assertThat(this.mainWindowTest.albumCollectionIsVisible()).isTrue();
     }
