@@ -33,3 +33,7 @@ Scenario: I am able to see details of an album from my collection
   When I choose the first album from my collection
   And I click Details button
   Then the Album Details window should appear
+
+Scenario: I am able to logout
+  When I click logout button
+  Then I should be at login and register window

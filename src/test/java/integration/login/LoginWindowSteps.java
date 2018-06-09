@@ -1,5 +1,6 @@
 package integration.login;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -58,5 +59,11 @@ final public class LoginWindowSteps extends SpringIntegrationTest
     {
         assertThat(loginWindowTest.messageShouldBeVisible(
                 String.format(environment.getProperty("user.already_registered"), username))).isTrue();
+    }
+
+    @Then("^I should be at login and register window$")
+    public void iShouldBeAtLoginAndRegisterWindow()
+    {
+        assertThat(loginWindowTest.isWindowVisible()).isTrue();
     }
 }

@@ -1,5 +1,6 @@
 package integration.mainwindow;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -120,5 +121,11 @@ final public class MainWindowSteps extends SpringIntegrationTest
     public void i_should_be_able_to_see_my_album_collection()
     {
         assertThat(this.mainWindowTest.albumCollectionIsVisible()).isTrue();
+    }
+
+    @When("^I click logout button$")
+    public void iClickLogoutButton()
+    {
+        this.mainWindowTest.clickLogoutButton();
     }
 }

@@ -188,4 +188,9 @@ public class MainWindowTest extends ApplicationTest
 
         return albums;
     }
+
+    public void clickLogoutButton()
+    {
+        clickOn("#logout");
+    }
 }

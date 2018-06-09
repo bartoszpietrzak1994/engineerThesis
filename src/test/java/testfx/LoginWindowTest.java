@@ -103,4 +103,9 @@ public class LoginWindowTest extends ApplicationTest
 
         return message.getText().equals(expectedMessage);
     }
+
+    public boolean isWindowVisible()
+    {
+        return lookup("#registerButton").query() != null;
+    }
 }
