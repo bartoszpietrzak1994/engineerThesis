@@ -2,6 +2,7 @@ package controller;
 
 import com.google.common.collect.Iterables;
 import dto.album.AlbumDto;
+import event.AlbumAddedEvent;
 import eventListener.AlbumListSelectionEventListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,9 +19,11 @@ import model.album.AlbumOrderingCriteria;
 import model.album.AlbumRating;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
+import org.springframework.validation.BindException;
 import request.album.FindAllUserAlbumRequest;
 import request.album.GetAlbumByIdRequest;
 import request.album.GetAlbumsOrderedByCriteriaRequest;
@@ -41,7 +44,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-final public class MainWindowController extends BaseController
+final public class MainWindowController extends BaseController implements ApplicationListener<AlbumAddedEvent>
 {
     private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "../ui/loginWindow.fxml";
     private static final String RELATIVE_ADD_ALBUM_CONTROLLER_PATH = "../ui/addAlbumWindow.fxml";
@@ -120,7 +123,6 @@ final public class MainWindowController extends BaseController
         Parent root = fxmlLoader.load();
         AddAlbumWindowController addAlbumWindowController = fxmlLoader.getController();
         addAlbumWindowController.setUserName(this.username);
-        addAlbumWindowController.setMainWindowController(this);
         addAlbumWindowController.setApplicationContext(this.applicationContext);
         Stage stage = new Stage();
         stage.initModality(Modality.WINDOW_MODAL);
@@ -206,7 +208,7 @@ final public class MainWindowController extends BaseController
         for (String albumAsString : userAlbums.getItems())
         {
             String albumId = AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(albumAsString);
-            albums.add(albumService.getAlbumById(new GetAlbumByIdRequest(albumId)).getAlbum());
+            albums.add(albumService.getAlbumById(new GetAlbumByIdRequest(albumId), new BindException()).getAlbum());
         }
 
         getRecommendationsRequest.setUserAlbums(albums);
@@ -243,7 +245,7 @@ final public class MainWindowController extends BaseController
         GetAlbumsOrderedByCriteriaRequest request = new GetAlbumsOrderedByCriteriaRequest();
         request.setSortingCriteria(this.orderBy.getValue());
 
-        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = albumService.getAlbumsGrouppedByCriteria(request);
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = albumService.getAlbumsOrderedByCriteria(request);
 
         if (!albumsGrouppedByCriteria.isSuccessful())
         {
@@ -307,5 +309,11 @@ final public class MainWindowController extends BaseController
         }
 
         userAlbumItems.addAll(albumsAsString);
+    }
+
+    @Override
+    public void onApplicationEvent(AlbumAddedEvent albumAddedEvent)
+    {
+        loadUserAlbums();
     }
 }

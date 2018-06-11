@@ -1,5 +1,6 @@
 package controller;
 
+import event.AlbumAddedEvent;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import request.album.AddAlbumRequest;
@@ -34,6 +36,9 @@ final public class AddAlbumWindowController extends BaseController implements In
 
     @Autowired
     private Environment environment;
+
+    @Autowired
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @FXML
     private TextField artist;
@@ -62,8 +67,6 @@ final public class AddAlbumWindowController extends BaseController implements In
     private String userName;
 
     private FileChooser fileChooser;
-
-    private MainWindowController mainWindowController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources)
@@ -98,7 +101,8 @@ final public class AddAlbumWindowController extends BaseController implements In
         }
 
         message.setText(environment.getProperty("album.added_successfully"));
-        this.mainWindowController.loadUserAlbums();
+
+        applicationEventPublisher.publishEvent(new AlbumAddedEvent(this));
     }
 
     public void onBrowseButtonClicked()
@@ -116,11 +120,6 @@ final public class AddAlbumWindowController extends BaseController implements In
     public void setUserName(String userName)
     {
         this.userName = userName;
-    }
-
-    public void setMainWindowController(MainWindowController mainWindowController)
-    {
-        this.mainWindowController = mainWindowController;
     }
 
     private byte[] getAlbumCoverAsBytes()

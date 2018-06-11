@@ -6,9 +6,11 @@ import request.user.RegisterUserRequest;
 import response.GenericResponse;
 import response.user.RegisterUserResponse;
 
+import javax.validation.Valid;
+
 public interface AuthenticationService
 {
-    RegisterUserResponse registerUser(RegisterUserRequest registerUserRequest);
-    GenericResponse login(LoginRequest loginRequest);
-    User findUserByUsername(String userName);
+    RegisterUserResponse registerUser(@Valid RegisterUserRequest registerUserRequest);
+    GenericResponse login(@Valid LoginRequest loginRequest);
+    User findUserByUsername(@Valid String userName);
 }

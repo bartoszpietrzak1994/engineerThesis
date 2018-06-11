@@ -42,7 +42,7 @@ public class AlbumServiceGetAlbumGroupedByCriteriaTest extends BaseFunctionalTes
         getAlbumsOrderedByCriteriaRequest.setSortingCriteria(AlbumOrderingCriteria.RELEASE_DATE.toString());
 
         // WHEN
-        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsGrouppedByCriteria
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsOrderedByCriteria
                 (getAlbumsOrderedByCriteriaRequest);
 
         // THEN
@@ -83,7 +83,7 @@ public class AlbumServiceGetAlbumGroupedByCriteriaTest extends BaseFunctionalTes
         getAlbumsOrderedByCriteriaRequest.setSortingCriteria(AlbumOrderingCriteria.RATING_DATE.toString());
 
         // WHEN
-        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsGrouppedByCriteria
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsOrderedByCriteria
                 (getAlbumsOrderedByCriteriaRequest);
 
         // THEN
@@ -123,7 +123,7 @@ public class AlbumServiceGetAlbumGroupedByCriteriaTest extends BaseFunctionalTes
         getAlbumsOrderedByCriteriaRequest.setSortingCriteria(AlbumOrderingCriteria.ARTIST_NAME.toString());
 
         // WHEN
-        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsGrouppedByCriteria
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsOrderedByCriteria
                 (getAlbumsOrderedByCriteriaRequest);
 
         // THEN
@@ -163,7 +163,7 @@ public class AlbumServiceGetAlbumGroupedByCriteriaTest extends BaseFunctionalTes
         getAlbumsOrderedByCriteriaRequest.setSortingCriteria(AlbumOrderingCriteria.ALBUM_TITLE.toString());
 
         // WHEN
-        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsGrouppedByCriteria
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsOrderedByCriteria
                 (getAlbumsOrderedByCriteriaRequest);
 
         // THEN
@@ -203,7 +203,7 @@ public class AlbumServiceGetAlbumGroupedByCriteriaTest extends BaseFunctionalTes
         getAlbumsOrderedByCriteriaRequest.setSortingCriteria(AlbumOrderingCriteria.ALBUM_TITLE.toString());
 
         // WHEN
-        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsGrouppedByCriteria
+        GetAlbumsOrderedByCriteriaResponse albumsGrouppedByCriteria = this.albumService.getAlbumsOrderedByCriteria
                 (getAlbumsOrderedByCriteriaRequest);
 
         // THEN
