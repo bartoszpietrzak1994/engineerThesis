@@ -18,40 +18,38 @@ public class AlbumServiceImpl implements AlbumService
     private AlbumManager albumManager;
 
     @Override
-    public AddAlbumResponse addAlbum(@Valid AddAlbumRequest addAlbumRequest, Errors errors)
+    public AddAlbumResponse addAlbum(AddAlbumRequest addAlbumRequest)
     {
         return albumManager.addAlbum(addAlbumRequest);
     }
 
     @Override
-    public GenericResponse rateAlbum(@Valid RateAlbumRequest rateAlbumRequest, Errors errors)
+    public GenericResponse rateAlbum(RateAlbumRequest rateAlbumRequest)
     {
         return albumManager.rateAlbum(rateAlbumRequest);
     }
 
     @Override
-    public FindAllUserAlbumsResponse findAllAlbumsAddedByUser(@Valid FindAllUserAlbumRequest findAllUserAlbumRequest, Errors errors)
+    public FindAllUserAlbumsResponse findAllAlbumsAddedByUser(FindAllUserAlbumRequest findAllUserAlbumRequest)
     {
         return albumManager.findAllUserAlbums(findAllUserAlbumRequest);
     }
 
     @Override
-    public GetAlbumCoverResponse getAlbumCover(@Valid GetAlbumCoverRequest getAlbumCoverRequest, Errors errors)
+    public GetAlbumCoverResponse getAlbumCover(GetAlbumCoverRequest getAlbumCoverRequest)
     {
         return albumManager.getAlbumCover(getAlbumCoverRequest);
     }
 
     @Override
-    public GetAlbumByIdResponse getAlbumById(@Valid GetAlbumByIdRequest getAlbumCoverRequest, Errors errors)
+    public GetAlbumByIdResponse getAlbumById(GetAlbumByIdRequest getAlbumCoverRequest)
     {
         return albumManager.getAlbumById(getAlbumCoverRequest);
     }
 
     @Override
-    public GetAlbumsOrderedByCriteriaResponse getAlbumsOrderedByCriteria(
-            @Valid GetAlbumsOrderedByCriteriaRequest request,
-            Errors errors
-    ) {
+    public GetAlbumsOrderedByCriteriaResponse getAlbumsOrderedByCriteria(GetAlbumsOrderedByCriteriaRequest request)
+    {
         return albumManager.getAlbumsGroupedByCriteria(request);
     }
 }

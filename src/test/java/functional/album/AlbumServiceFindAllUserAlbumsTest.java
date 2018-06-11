@@ -42,7 +42,7 @@ public class AlbumServiceFindAllUserAlbumsTest extends BaseFunctionalTest
         assertThat(albumList.size()).isEqualTo(2);
         List<String> albumsTitles = albumList.stream().map(AlbumDto::getTitle).collect(Collectors.toList());
 
-        assertThat(albumsTitles).containsExactly(firstAlbum.getTitle(), secondAlbum.getTitle());
+        assertThat(albumsTitles).contains(firstAlbum.getTitle(), secondAlbum.getTitle());
     }
 
     @Test

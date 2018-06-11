@@ -17,10 +17,6 @@ public class ReleaseDateSortingMethod extends AlbumSortingMethod
     public ReleaseDateSortingMethod(AlbumRepository albumRepository)
     {
         this.albumRepository = albumRepository;
-    }
-
-    public ReleaseDateSortingMethod()
-    {
         this.albumSortingCriteria = AlbumOrderingCriteria.RELEASE_DATE;
     }
 

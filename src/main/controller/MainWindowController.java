@@ -208,7 +208,7 @@ final public class MainWindowController extends BaseController implements Applic
         for (String albumAsString : userAlbums.getItems())
         {
             String albumId = AlbumPropertiesUtils.getAlbumIdFromAlbumProperties(albumAsString);
-            albums.add(albumService.getAlbumById(new GetAlbumByIdRequest(albumId), new BindException()).getAlbum());
+            albums.add(albumService.getAlbumById(new GetAlbumByIdRequest(albumId)).getAlbum());
         }
 
         getRecommendationsRequest.setUserAlbums(albums);
