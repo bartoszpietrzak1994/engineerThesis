@@ -1,11 +1,8 @@
 package service;
 
-import org.springframework.validation.Errors;
 import request.album.*;
 import response.GenericResponse;
 import response.album.*;
-
-import javax.validation.Valid;
 
 public interface AlbumService
 {

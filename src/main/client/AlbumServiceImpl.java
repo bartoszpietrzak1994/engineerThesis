@@ -3,13 +3,10 @@ package client;
 import manager.AlbumManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.validation.Errors;
 import request.album.*;
 import response.GenericResponse;
 import response.album.*;
 import service.AlbumService;
-
-import javax.validation.Valid;
 
 @Component
 public class AlbumServiceImpl implements AlbumService

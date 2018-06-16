@@ -18,6 +18,8 @@ import javafx.stage.StageStyle;
 import model.album.AlbumOrderingCriteria;
 import model.album.AlbumRating;
 import org.apache.commons.lang3.StringUtils;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.core.env.Environment;
@@ -44,7 +46,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-final public class MainWindowController extends BaseController implements ApplicationListener<AlbumAddedEvent>
+public class MainWindowController extends BaseController
 {
     private static final String RELATIVE_LOGIN_CONTROLLER_PATH = "../ui/loginWindow.fxml";
     private static final String RELATIVE_ADD_ALBUM_CONTROLLER_PATH = "../ui/addAlbumWindow.fxml";
@@ -199,8 +201,6 @@ final public class MainWindowController extends BaseController implements Applic
     @FXML
     public void onGetRecommendationsButtonClicked() throws IOException
     {
-        this.message.setText("");
-
         GetRecommendationsRequest getRecommendationsRequest = new GetRecommendationsRequest();
 
         List<AlbumDto> albums = new ArrayList<>();
@@ -240,8 +240,6 @@ final public class MainWindowController extends BaseController implements Applic
     @FXML
     public void onOrderButtonClicked()
     {
-        this.message.setText("");
-
         GetAlbumsOrderedByCriteriaRequest request = new GetAlbumsOrderedByCriteriaRequest();
         request.setSortingCriteria(this.orderBy.getValue());
 
@@ -311,9 +309,8 @@ final public class MainWindowController extends BaseController implements Applic
         userAlbumItems.addAll(albumsAsString);
     }
 
-    @Override
-    public void onApplicationEvent(AlbumAddedEvent albumAddedEvent)
+    public void clearMessage()
     {
-        loadUserAlbums();
+        this.message.setText("");
     }
 }

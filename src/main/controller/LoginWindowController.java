@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -60,8 +61,6 @@ final public class LoginWindowController extends BaseController implements Initi
     @FXML
     public void onRegisterButtonClicked()
     {
-        this.message.setText("");
-
         String userName = this.login.getText();
         String password = this.password.getText();
 
@@ -82,8 +81,6 @@ final public class LoginWindowController extends BaseController implements Initi
     @FXML
     public void onLoginButtonClicked() throws IOException
     {
-        this.message.setText("");
-
         String userName = this.login.getText();
         String password = this.password.getText();
 
@@ -96,6 +93,11 @@ final public class LoginWindowController extends BaseController implements Initi
         }
 
         openMainApplicationWindow(userName);
+    }
+
+    public void clearMessage()
+    {
+        this.message.setText("");
     }
 
     private void openMainApplicationWindow(String userName) throws IOException
