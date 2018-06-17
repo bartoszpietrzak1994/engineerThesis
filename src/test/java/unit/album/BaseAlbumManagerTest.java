@@ -22,22 +22,16 @@ import static org.mockito.Mockito.mock;
 
 public abstract class BaseAlbumManagerTest extends BaseUnitTest
 {
-    @Mock
     protected AlbumRepository albumRepository;
 
-    @Mock
     protected AlbumManager albumManager;
 
-    @Mock
     protected AuthenticationService authenticationService;
 
-    @Mock
     protected AlbumSortingMethodResolver albumSortingMethodResolver;
 
-    @Mock
     protected RequestValidator requestValidator;
 
-    @Mock
     protected Environment environment;
 
     @Before
@@ -49,7 +43,6 @@ public abstract class BaseAlbumManagerTest extends BaseUnitTest
         this.requestValidator = mock(RequestValidator.class);
         this.environment = mock(Environment.class);
         this.albumManager = mock(AlbumManager.class);
-        MockitoAnnotations.initMocks(this);
 
         this.albumManager = new AlbumManager(albumRepository, authenticationService, albumSortingMethodResolver,
                 requestValidator, environment);

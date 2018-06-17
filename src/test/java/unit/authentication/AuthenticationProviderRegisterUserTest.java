@@ -86,6 +86,8 @@ public class AuthenticationProviderRegisterUserTest extends BaseAuthenticationPr
         Mockito.when(bCryptPasswordEncoder.encode(any(String.class))).thenReturn(RandomStringUtils.randomAlphanumeric(5));
         Mockito.when(userRepository.findOneByUsername(any(String.class))).thenReturn(new User(Long.valueOf(RandomStringUtils.randomNumeric(5)),
                 USERNAME, PASSWORD));
+        Mockito.when(environment.getProperty("user.already_registered")).thenReturn(String.format("User with username %s" +
+                " has already been registered.", USERNAME));
 
         RegisterUserRequest registerUserRequest = new RegisterUserRequest(USERNAME, PASSWORD);
 

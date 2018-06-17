@@ -13,7 +13,6 @@ public class AlbumAddedEventListenerTest
 {
     private AlbumAddedEventListener albumAddedEventListener;
 
-    @Mock
     private MainWindowController mainWindowController;
 
     @Before

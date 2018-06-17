@@ -1,9 +1,11 @@
 package unit.aspect;
 
 import aspect.AlbumRepositoryFlusher;
+import model.album.Album;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
+import org.springframework.aop.aspectj.annotation.AspectJProxyFactory;
 import repository.AlbumRepository;
 
 import static org.mockito.Mockito.mock;
@@ -12,7 +14,6 @@ import static org.mockito.Mockito.verify;
 
 public class AlbumRepositoryFlusherTest
 {
-    @Mock
     private AlbumRepository albumRepository;
 
     private AlbumRepositoryFlusher albumRepositoryFlusher;
@@ -27,10 +28,13 @@ public class AlbumRepositoryFlusherTest
     public void itFlushesRepositoryAfterSavingNewEntity()
     {
         // GIVEN
-        albumRepositoryFlusher = new AlbumRepositoryFlusher(albumRepository);
+        AspectJProxyFactory factory = new AspectJProxyFactory(albumRepository);
+        AlbumRepositoryFlusher aspect = new AlbumRepositoryFlusher(albumRepository);
+        factory.addAspect(aspect);
+        AlbumRepository proxy = factory.getProxy();
 
         // WHEN
-        albumRepositoryFlusher.afterEntitySaved();
+        proxy.save(new Album());
 
         // THEN
         verify(albumRepository, times(1)).flush();

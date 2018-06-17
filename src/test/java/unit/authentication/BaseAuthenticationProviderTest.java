@@ -16,19 +16,14 @@ public abstract class BaseAuthenticationProviderTest extends BaseUnitTest
     protected static final String USERNAME = "username";
     protected static final String PASSWORD = "password";
 
-    @Mock
     protected UserRepository userRepository;
 
-    @Mock
     protected Environment environment;
 
-    @Mock
     protected BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Mock
     protected AuthenticationProvider authenticationProvider;
 
-    @Mock
     protected RequestValidator requestValidator;
 
     @Before
