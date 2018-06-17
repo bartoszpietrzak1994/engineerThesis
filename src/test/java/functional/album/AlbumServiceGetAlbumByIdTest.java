@@ -82,7 +82,5 @@ public class AlbumServiceGetAlbumByIdTest extends BaseFunctionalTest
         assertThat(getAlbumByIdResponse).isNotNull();
         assertThat(getAlbumByIdResponse.isSuccessful()).isFalse();
         assertThat(getAlbumByIdResponse.getAlbum()).isNull();
-//        todo
-//        assertThat(getAlbumByIdResponse.getErrorMessage()).isEqualToIgnoringCase();
     }
 }

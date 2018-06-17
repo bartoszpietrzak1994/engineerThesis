@@ -72,9 +72,5 @@ public class AlbumServiceRateAlbumTest extends BaseFunctionalTest
         // THEN
         assertThat(rateAlbumResponse).isNotNull();
         assertThat(rateAlbumResponse.isSuccessful()).isFalse();
-
-        //todo
-//        assertThat(rateAlbumResponse.getErrorMessage()).isEqualToIgnoringCase();
-
     }
 }

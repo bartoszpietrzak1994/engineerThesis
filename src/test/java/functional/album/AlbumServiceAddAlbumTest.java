@@ -67,8 +67,5 @@ public class AlbumServiceAddAlbumTest extends BaseFunctionalTest
         // THEN
         assertThat(addAlbumResponse).isNotNull();
         assertThat(addAlbumResponse.isSuccessful()).isFalse();
-//        todo
-//        assertThat(addAlbumResponse.getErrorMessage()).isEqualToIgnoringCase(environment.getProperty("album" + "" +
-//                ".add_album_error"));
     }
 }

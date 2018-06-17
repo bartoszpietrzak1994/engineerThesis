@@ -76,7 +76,5 @@ public class AlbumServiceFindAllUserAlbumsTest extends BaseFunctionalTest
         // THEN
         assertThat(allAlbumsAddedByUser).isNotNull();
         assertThat(allAlbumsAddedByUser.isSuccessful()).isFalse();
-        // todo message
-
     }
 }

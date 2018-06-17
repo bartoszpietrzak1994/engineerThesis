@@ -67,7 +67,5 @@ public class AlbumServiceGetAlbumCoverTest extends BaseFunctionalTest
         // THEN
         assertThat(getAlbumCoverResponse).isNotNull();
         assertThat(getAlbumCoverResponse.isSuccessful()).isFalse();
-//        todo
-//        assertThat(getAlbumCoverResponse.getErrorMessage()).isEqualToIgnoringCase();
     }
 }

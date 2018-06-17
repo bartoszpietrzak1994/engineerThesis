@@ -71,7 +71,6 @@ final public class AlbumDetailsController extends BaseController implements Init
 
         if (!response.isSuccessful())
         {
-            // todo
             return;
         }
 
